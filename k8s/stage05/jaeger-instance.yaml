@@ -1,0 +1,14 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+  namespace: monitoring
+spec:
+  ingress:
+    ingressClassName: nginx
+    hosts:
+    - jaeger.local.ne1410s.co.uk
+    tls:
+    - hosts:
+      - jaeger.local.ne1410s.co.uk
+      secretName: ingress-tls-cert
