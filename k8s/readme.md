@@ -70,5 +70,9 @@ To view zpages (opentel experimental ui), port-forward as follows:
 To view open-telemetry metrics directly:
   - kubectl port-forward -n monitoring service/otel-collector 59090
   - http://localhost:59090/metrics
+  
+Use your cluster mq to save spinning up separately:
+  - kubectl port-forward -n mq service/rabbitmq-service 5670:5672
+  - can now specify RabbitMq:Hostname = 5670 locally
 
 Viewing the promtail-daemonset pod logs also proved useful when writing this guide!
