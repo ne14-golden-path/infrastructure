@@ -4,7 +4,6 @@ Add hosts file entries as follows:
   - 127.0.0.1 grafana.local.ne1410s.co.uk
   - 127.0.0.1 jaeger.local.ne1410s.co.uk
   - 127.0.0.1 rabbit.local.ne1410s.co.uk
-  - 127.0.0.1 fileman.local.ne1410s.co.uk
   - 127.0.0.1 portalapi.local.ne1410s.co.uk
   - 127.0.0.1 portal.local.ne1410s.co.uk
 
@@ -13,7 +12,6 @@ Apps are (/will be) accessible on:
   - https://grafana.local.ne1410s.co.uk
   - https://jaeger.local.ne1410s.co.uk
   - https://rabbit.local.ne1410s.co.uk
-  - https://fileman.local.ne1410s.co.uk
   - https://portal.local.ne1410s.co.uk
   
 In OpenLens, go to (Cluster) > Settings > Metrics and set:
@@ -71,8 +69,9 @@ To view open-telemetry metrics directly:
   - kubectl port-forward -n monitoring service/otel-collector 59090
   - http://localhost:59090/metrics
   
-Use your cluster mq to save spinning up separately:
-  - kubectl port-forward -n mq service/rabbitmq-service 5670:5672
-  - can now specify RabbitMq:Hostname = 5670 locally
+Use your cluster to save spinning containers up separately!  (the below is done automatically in stage06 using NodePorts!)
+  - kubectl port-forward -n mq service/rabbitmq-service 32000:5672
+  - kubectl port-forward -n fileman service/clamav-service 32001:3310
+  - kubectl port-forward -n fileman service/gotenberg-service 32002:3000
 
 Viewing the promtail-daemonset pod logs also proved useful when writing this guide!
