@@ -139,8 +139,14 @@ metadata:
   name: docs-config
   namespace: fileman
 data:
+  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite-service;"
   ClamAv__Hostname: "clamav-service.fileman"
+  ClamAv__Port: "3310"
+  GotenbergSharpClient__HealthCheckUrl: "http://gotenberg-service.fileman:3000/health"
+  GotenbergSharpClient__ServiceUrl: "http://gotenberg-service.fileman:3000"
+  OpenTel__Grpc: "http://otel-collector.monitoring:4317"
   RabbitMq__Hostname: "rabbitmq-service.mq"
+  RabbitMq__Port: "5672"
 ---
 
 apiVersion: apps/v1
