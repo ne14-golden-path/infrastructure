@@ -35,6 +35,7 @@ Run the following in order. Wait 20s or so between each:
   - helm upgrade --install opentelemetry-operator --namespace monitoring open-telemetry/opentelemetry-operator
   - kubectl apply -f "<REPO>\k8s\stage04"
   - kubectl apply -f "<REPO>\k8s\stage05"
+  - kubectl apply -f "<REPO>\k8s\stage06"  <-- local dev purposes :)
 
 ## Apply ssl certificate payloads as secrets
   - cd to directory containing SSL cert files
