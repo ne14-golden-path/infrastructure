@@ -128,7 +128,7 @@ metadata:
   name: portalapi-config
   namespace: portal
 data:
-  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite-service;"
+  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
   OpenTel__Grpc: "http://otel-collector.monitoring:4317"
   RabbitMq__Hostname: "rabbitmq-service.mq"
   RabbitMq__Port: "5672"
@@ -249,4 +249,14 @@ status:
   loadBalancer:
     ingress:
     - hostname: localhost
+---
+# allows us to hit up "azurite" (single hostname in default ns) from anywhere in this ns - just to make azurite work!
+apiVersion: v1
+kind: Service
+metadata:
+  name: azurite
+  namespace: portal
+spec:
+  type: ExternalName
+  externalName: azurite-service.default.svc.cluster.local
 ---

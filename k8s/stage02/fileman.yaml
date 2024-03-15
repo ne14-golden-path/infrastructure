@@ -139,7 +139,7 @@ metadata:
   name: docs-config
   namespace: fileman
 data:
-  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite-service;"
+  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
   ClamAv__Hostname: "clamav-service.fileman"
   ClamAv__Port: "3310"
   GotenbergSharpClient__HealthCheckUrl: "http://gotenberg-service.fileman:3000/health"
@@ -234,4 +234,14 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
+---
+# allows us to hit up "azurite" (single hostname in default ns) from anywhere in this ns - just to make azurite work!
+apiVersion: v1
+kind: Service
+metadata:
+  name: azurite
+  namespace: fileman
+spec:
+  type: ExternalName
+  externalName: azurite-service.default.svc.cluster.local
 ---
