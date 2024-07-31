@@ -32,7 +32,8 @@ Run the following in order. Wait 20s or so between each:
   - <ISSUE_CERTS> - see below!
   - helm upgrade --install loki --namespace monitoring --values "<REPO>\k8s\stage03_helm\loki-helm-values.yaml" grafana/loki
   - helm upgrade --install tempo --namespace monitoring grafana/tempo
-  - helm upgrade --install opentelemetry-operator --namespace monitoring open-telemetry/opentelemetry-operator
+  #- helm upgrade --install opentelemetry-operator --namespace monitoring open-telemetry/opentelemetry-operator
+  - kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releases/latest/download/opentelemetry-operator.yaml
   - kubectl apply -f "<REPO>\k8s\stage04"
   - kubectl apply -f "<REPO>\k8s\stage05"
   - kubectl apply -f "<REPO>\k8s\stage06"  <-- local dev purposes :)
@@ -40,7 +41,7 @@ Run the following in order. Wait 20s or so between each:
 ## Apply ssl certificate payloads as secrets
   - cd to directory containing SSL cert files
   - add a secret for each ingress namespace
-    - `kubectl create secret tls ingress-tls-cert -n NAMESPACE --key=tls.key --cert=tls.crt`
+    - `kubectl create secret tls ingress-tls-cert --key=tls.key --cert=tls.crt -n NAMESPACE`
   - current ingress namespaces:
     - `portal | mq | fileman | monitoring`
 *NB: prometheus, grafana, etc are configured on the monitoring namespace, so don't require separate secrets).*
