@@ -1,0 +1,76 @@
+TEH HELM APPROACH:
+
+# cert-manager (https://cert-manager.io/docs/installation/helm/)
+helm upgrade --install cert-manager cert-manager `
+  --repo https://charts.jetstack.io `
+  --version v1.15.2 `
+  --namespace cert-manager --create-namespace `
+  --set crds.enabled=true
+
+# nginx-ingress-controller (https://kubernetes.github.io/ingress-nginx/deploy/)
+helm upgrade --install ingress-nginx ingress-nginx `
+  --repo https://kubernetes.github.io/ingress-nginx `
+  --version 4.11.1 `
+  --namespace ingress-nginx --create-namespace
+
+#node-exporter
+helm upgrade --install prometheus-node-exporter prometheus-node-exporter `
+  --repo https://prometheus-community.github.io/helm-charts `
+  --version 4.37.1 `
+  --namespace monitoring --create-namespace
+
+#prometheus
+helm upgrade --install prometheus prometheus `
+  --repo https://prometheus-community.github.io/helm-charts `
+  --version 25.24.1 `
+  --namespace monitoring --create-namespace
+
+#kube-state-metrics
+helm upgrade --install kube-state-metrics kube-state-metrics `
+  --repo https://prometheus-community.github.io/helm-charts `
+  --version 5.25.1 `
+  --namespace monitoring --create-namespace
+
+#grafana (the below returns a console message about finding the admin password)
+helm upgrade --install grafana grafana `
+  --repo https://grafana.github.io/helm-charts `
+  --version 8.4.0 `
+  --namespace monitoring --create-namespace
+
+#promtail (Daemonset-from-yml recommended: https://grafana.com/docs/loki/latest/send-data/promtail/installation/)
+# PS.. What is Grafana Alloy ??
+kubectl apply -f .\k8s-24\promtail-daemonset.yml --namespace monitoring
+
+# loki (https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/)
+helm upgrade --install loki loki `
+  --repo https://grafana.github.io/helm-charts `
+  --version 6.7.3 `
+  --namespace monitoring --create-namespace `
+  --values .\k8s-24\loki-values.yml
+
+# tempo 
+helm upgrade --install tempo tempo `
+  --repo https://grafana.github.io/helm-charts `
+  --version 1.10.1 `
+  --namespace monitoring --create-namespace
+
+# open-telemetry-operator
+helm upgrade --install opentelemetry-operator opentelemetry-operator `
+  --repo https://open-telemetry.github.io/opentelemetry-helm-charts `
+  --version 0.64.4 `
+  --namespace monitoring --create-namespace `
+  --set "manager.collectorImage.repository=otel/opentelemetry-collector-k8s" `
+  --set admissionWebhooks.certManager.enabled=true
+
+#jaeger-operator
+helm upgrade --install jaeger-operator jaeger-operator `
+  --repo https://jaegertracing.github.io/helm-charts `
+  --version 2.55.0 `
+  --namespace monitoring
+
+#open-telemetry-collector
+helm upgrade --install opentelemetry-collector opentelemetry-collector `
+  --repo https://open-telemetry.github.io/opentelemetry-helm-charts `
+  --version 0.101.1 `
+  --namespace monitoring `
+  --values .\k8s-24\otel-collector-values.yml 
