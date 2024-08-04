@@ -1,0 +1,35 @@
+# monitoring namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    name: monitoring
+---
+
+# mq namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mq
+  labels:
+    name: mq
+---
+
+# fileman namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fileman
+  labels:
+    name: fileman
+---
+
+# portal namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: portal
+  labels:
+    name: portal
+---
