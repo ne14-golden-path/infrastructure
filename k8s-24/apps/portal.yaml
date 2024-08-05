@@ -1,0 +1,262 @@
+# portal namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: portal
+  labels:
+    name: portal
+---
+
+# portal.web
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portalweb-config
+  namespace: portal
+data:
+  env.js: >
+    window.__env = {
+      apiUrl: 'https://portalapi.local.ne1410s.co.uk',
+    };
+---
+
+# portal.web
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portalweb-deploy
+  namespace: portal
+  labels:
+    app: portalweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portalweb
+  template:
+    metadata:
+      labels:
+        app: portalweb
+    spec: 
+      containers:
+      - name: portalweb-pod
+        image: ne1410s/portal.web:0.0.1
+        resources:
+          limits:
+            memory: 128Mi
+            cpu: '8'
+          requests:
+            memory: 128Mi
+            cpu: 100m
+        ports:
+        - containerPort: 80
+        env:
+        # use downward api to save messing around with role permissions, etc when trying
+        # to scrape and apply these simple properties later on the observability stack
+        - name: K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: K8S_APP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['app']
+        - name: K8S_POD
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: portalweb-volume
+          mountPath: /usr/share/nginx/html/assets
+      volumes:
+      - name: portalweb-volume
+        configMap:
+          name: portalweb-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portalweb-service
+  namespace: portal
+spec:
+  type: ClusterIP
+  selector:
+    app: portalweb
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portalweb-localhost
+  namespace: portal
+  #annotations:
+    ## Uncomment this block for 'dynamic' tls (must be hosted cluster)
+    #cert-manager.io/cluster-issuer: letsencrypt-issuer
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - portal.local.ne1410s.co.uk
+    secretName: ingress-tls-cert
+  rules:
+  - host: portal.local.ne1410s.co.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: portalweb-service
+            port:
+              number: 80
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
+---
+
+# portal.api
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portalapi-config
+  namespace: portal
+data:
+  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
+  OpenTel__Grpc: "http://otel-collector.monitoring:4317"
+  RabbitMq__Hostname: "rabbitmq-service.mq"
+  RabbitMq__Port: "5672"
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portalapi-deploy
+  namespace: portal
+  labels:
+    app: portalapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portalapi
+  template:
+    metadata:
+      labels:
+        app: portalapi
+    spec: 
+      containers:
+      - name: portalapi-pod
+        image: ne1410s/portal.api:0.0.1
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: '8'
+          requests:
+            memory: 256Mi
+            cpu: 40m
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: portalapi-config
+        env:
+        # use downward api to save messing around with role permissions, etc when trying
+        # to scrape and apply these simple properties later on the observability stack
+        - name: K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: K8S_APP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['app']
+        - name: K8S_POD
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          failureThreshold: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz/ready
+            port: 8080
+          initialDelaySeconds: 15
+          failureThreshold: 3
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz/live
+            port: 8080
+          failureThreshold: 1
+          periodSeconds: 60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portalapi-service
+  namespace: portal
+spec:
+  type: ClusterIP
+  selector:
+    app: portalapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portalapi-localhost
+  namespace: portal
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    # Uncomment below for 'dynamic' tls (must be hosted cluster)
+    #cert-manager.io/cluster-issuer: letsencrypt-issuer
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - portalapi.local.ne1410s.co.uk
+    secretName: ingress-tls-cert
+  rules:
+  - host: portalapi.local.ne1410s.co.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: portalapi-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
+---
+# allows us to hit up "azurite" (single hostname in default ns) from anywhere in this ns - just to make azurite work!
+apiVersion: v1
+kind: Service
+metadata:
+  name: azurite
+  namespace: portal
+spec:
+  type: ExternalName
+  externalName: azurite-service.default.svc.cluster.local
+---

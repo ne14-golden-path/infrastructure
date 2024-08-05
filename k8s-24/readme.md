@@ -77,5 +77,8 @@ helm upgrade --install opentelemetry-collector opentelemetry-collector `
   --version 0.101.1 `
   --namespace monitoring `
   --values .\k8s-24\otel-collector-values.yml
+
+# and finally... my apps!
+kubectl apply -f .\k8s-24\apps
 ```
 
