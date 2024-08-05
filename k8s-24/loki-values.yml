@@ -1,4 +1,6 @@
 deploymentMode: SingleBinary
+chunksCache:
+  allocatedMemory: 1024 # <-- PJ updated this!
 loki:
   auth_enabled: false
   commonConfig:

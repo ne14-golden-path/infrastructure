@@ -28,6 +28,7 @@ metadata:
 subjects:
     - kind: ServiceAccount
       name: promtail-serviceaccount
+      namespace: monitoring # <-- PJ updated this!
 roleRef:
     kind: ClusterRole
     name: promtail-clusterrole

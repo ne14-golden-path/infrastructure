@@ -11,8 +11,8 @@ config:
       use_incoming_timestamp: true
     otlp:
       protocols:
-        grpc:
-        http:
+        grpc: {}
+        http: {}
   
   processors:
     attributes/logs:
@@ -45,8 +45,8 @@ config:
         insecure: true
   
   extensions:
-    zpages:
-    health_check:
+    zpages: {}
+    health_check: {}
   
   service:
     extensions: [zpages, health_check]
