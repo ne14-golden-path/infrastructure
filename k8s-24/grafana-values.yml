@@ -1,31 +1,20 @@
-data:
-  prometheus.yaml: |-
-    {
-      "apiVersion": 1,
-      "datasources": [
-        {
-          "editable": false,
-          "name": "Tempo",
-          "type": "tempo",
-          "url": "http://tempo:3100"
-        },
-        {
-          "editable": false,
-          "name": "Prometheus",
-          "type": "prometheus",
-          "url": "http://prometheus-service:8080"
-        },
-        {
-          "editable": false,
-          "name": "Loki",
-          "type": "loki",
-          "url": "http://loki-gateway",
-          "jsonData": {
-            "httpHeaderName1": "X-Scope-OrgID"
-          },
-          "secureJsonData": {
-            "httpHeaderValue1": "1"
-          }
-        }
-      ]
-    }
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Tempo
+      type: tempo
+      editable: false
+      url: http://tempo:3100
+    - name: Prometheus
+      type: prometheus
+      editable: false
+      url: http://prometheus-server:80
+    - name: Loki
+      type: loki
+      editable: false
+      url: http://loki-gateway
+      jsonData:
+        httpHeaderName1: X-Scope-OrgID
+      secureJsonData:
+        httpHeaderValue1: 1

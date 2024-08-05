@@ -41,8 +41,8 @@ helm upgrade --install grafana grafana `
   --namespace monitoring `
   --values ./k8s-24/grafana-values.yml
 
-#grafana (ingress with custom tls cert)
-kubectl apply -f ./k8s-24/grafana-ingress.yml
+#ingresses (prometheus and grafana - custom tls cert)
+kubectl apply -f ./k8s-24/monitoring-ingresses.yml
 
 #promtail (Daemonset-from-yml recommended: https://grafana.com/docs/loki/latest/send-data/promtail/installation/)
 kubectl apply -f ./k8s-24/promtail-daemonset.yml --namespace monitoring

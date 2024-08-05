@@ -17,6 +17,7 @@ Apps are (/will be) accessible on:
 In OpenLens, go to (Cluster) > Settings > Metrics and set:
   - PROMETHEUS: Prometheus Operator
   - PROMETHEUS SERVICE ADDRESS: monitoring/prometheus-service:8080
+// for k8s-24 we can use this:  monitoring/prometheus-server:80
 
 With the above, the CPU and Memory dashboards should show up in OpenLens on the pods (once prometheus is deployed!)
 
