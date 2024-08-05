@@ -1,3 +1,38 @@
+--- # ServiceAccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: promtail-serviceaccount
+
+--- # Clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: promtail-clusterrole
+rules:
+  - apiGroups: [""]
+    resources:
+    - nodes
+    - services
+    - pods
+    verbs:
+    - get
+    - watch
+    - list
+
+--- # Rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: promtail-clusterrolebinding
+subjects:
+    - kind: ServiceAccount
+      name: promtail-serviceaccount
+roleRef:
+    kind: ClusterRole
+    name: promtail-clusterrole
+    apiGroup: rbac.authorization.k8s.io
+
 --- # Daemonset.yaml
 apiVersion: apps/v1
 kind: DaemonSet
@@ -18,7 +53,7 @@ spec:
         image: grafana/promtail
         args:
         - -config.file=/etc/promtail/promtail.yaml
-        env: 
+        env:
         - name: 'HOSTNAME' # needed when using kubernetes_sd_configs
           valueFrom:
             fieldRef:
@@ -96,39 +131,4 @@ data:
             - __meta_kubernetes_pod_uid
             - __meta_kubernetes_pod_container_name
           target_label: __path__
-
---- # Clusterrole.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: promtail-clusterrole
-rules:
-  - apiGroups: [""]
-    resources:
-    - nodes
-    - services
-    - pods
-    verbs:
-    - get
-    - watch
-    - list
-
---- # ServiceAccount.yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: promtail-serviceaccount
-
---- # Rolebinding.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: promtail-clusterrolebinding
-subjects:
-    - kind: ServiceAccount
-      name: promtail-serviceaccount
-      namespace: default
-roleRef:
-    kind: ClusterRole
-    name: promtail-clusterrole
-    apiGroup: rbac.authorization.k8s.io
+---

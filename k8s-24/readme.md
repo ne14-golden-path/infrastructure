@@ -1,5 +1,7 @@
-TEH HELM APPROACH:
+# k8s 2024 - The Helm Approach
+The "k8s '24" approach uses mostly helm charts where possible
 
+```bash
 # cert-manager (https://cert-manager.io/docs/installation/helm/)
 helm upgrade --install cert-manager cert-manager `
   --repo https://charts.jetstack.io `
@@ -49,7 +51,7 @@ helm upgrade --install loki loki `
   --namespace monitoring `
   --values .\k8s-24\loki-values.yml
 
-# tempo 
+# tempo
 helm upgrade --install tempo tempo `
   --repo https://grafana.github.io/helm-charts `
   --version 1.10.1 `
@@ -74,4 +76,6 @@ helm upgrade --install opentelemetry-collector opentelemetry-collector `
   --repo https://open-telemetry.github.io/opentelemetry-helm-charts `
   --version 0.101.1 `
   --namespace monitoring `
-  --values .\k8s-24\otel-collector-values.yml 
+  --values .\k8s-24\otel-collector-values.yml
+```
+
