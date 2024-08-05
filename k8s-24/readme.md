@@ -16,11 +16,11 @@ helm upgrade --install ingress-nginx ingress-nginx `
   --namespace ingress-nginx --create-namespace
 
 # namespaces n certz
-kubectl apply -f .\k8s-24\ns.yml
-kubectl create secret tls ingress-tls-cert --key=c:\temp\k8s-tls.key --cert=c:\temp\k8s-tls.crt -n monitoring
-kubectl create secret tls ingress-tls-cert --key=c:\temp\k8s-tls.key --cert=c:\temp\k8s-tls.crt -n mq
-kubectl create secret tls ingress-tls-cert --key=c:\temp\k8s-tls.key --cert=c:\temp\k8s-tls.crt -n fileman
-kubectl create secret tls ingress-tls-cert --key=c:\temp\k8s-tls.key --cert=c:\temp\k8s-tls.crt -n portal
+kubectl apply -f ./k8s-24/ns.yml
+kubectl create secret tls ingress-tls-cert --key=c:/temp/k8s-tls.key --cert=c:/temp/k8s-tls.crt -n monitoring
+kubectl create secret tls ingress-tls-cert --key=c:/temp/k8s-tls.key --cert=c:/temp/k8s-tls.crt -n mq
+kubectl create secret tls ingress-tls-cert --key=c:/temp/k8s-tls.key --cert=c:/temp/k8s-tls.crt -n fileman
+kubectl create secret tls ingress-tls-cert --key=c:/temp/k8s-tls.key --cert=c:/temp/k8s-tls.crt -n portal
 
 #prometheus (includes prometheus-node-exporter!!)
 helm upgrade --install prometheus prometheus `
@@ -38,18 +38,21 @@ helm upgrade --install kube-state-metrics kube-state-metrics `
 helm upgrade --install grafana grafana `
   --repo https://grafana.github.io/helm-charts `
   --version 8.4.0 `
-  --namespace monitoring
+  --namespace monitoring `
+  --values ./k8s-24/grafana-values.yml
+
+#grafana (ingress with custom tls cert)
+kubectl apply -f ./k8s-24/grafana-ingress.yml
 
 #promtail (Daemonset-from-yml recommended: https://grafana.com/docs/loki/latest/send-data/promtail/installation/)
-# PS.. What is Grafana Alloy ??
-kubectl apply -f .\k8s-24\promtail-daemonset.yml --namespace monitoring
+kubectl apply -f ./k8s-24/promtail-daemonset.yml --namespace monitoring
 
 # loki (https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/)
 helm upgrade --install loki loki `
   --repo https://grafana.github.io/helm-charts `
   --version 6.7.3 `
   --namespace monitoring `
-  --values .\k8s-24\loki-values.yml
+  --values ./k8s-24/loki-values.yml
 
 # tempo
 helm upgrade --install tempo tempo `
@@ -65,20 +68,14 @@ helm upgrade --install opentelemetry-operator opentelemetry-operator `
   --set "manager.collectorImage.repository=otel/opentelemetry-collector-k8s" `
   --set admissionWebhooks.certManager.enabled=true
 
-#jaeger-operator
-helm upgrade --install jaeger-operator jaeger-operator `
-  --repo https://jaegertracing.github.io/helm-charts `
-  --version 2.55.0 `
-  --namespace monitoring
-
 #open-telemetry-collector
 helm upgrade --install opentelemetry-collector opentelemetry-collector `
   --repo https://open-telemetry.github.io/opentelemetry-helm-charts `
   --version 0.101.1 `
   --namespace monitoring `
-  --values .\k8s-24\otel-collector-values.yml
+  --values ./k8s-24/otel-collector-values.yml
 
 # and finally... my apps!
-kubectl apply -f .\k8s-24\apps
+kubectl apply -f ./k8s-24/apps
 ```
 

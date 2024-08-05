@@ -1,0 +1,30 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-localhost
+  namespace: monitoring
+  #annotations:
+    ## Uncomment this block for 'dynamic' tls (must be hosted cluster)
+    #cert-manager.io/cluster-issuer: letsencrypt-issuer
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - grafana.local.ne1410s.co.uk
+    secretName: ingress-tls-cert
+  rules:
+  - host: grafana.local.ne1410s.co.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: grafana
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
