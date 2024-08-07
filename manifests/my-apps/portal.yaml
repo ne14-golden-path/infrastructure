@@ -1,0 +1,276 @@
+# portal namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: portal
+  labels:
+    name: portal
+---
+
+# development cert
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/tls
+metadata:
+  name: ingress-tls-cert
+  namespace: portal
+data:
+  tls.crt: >-
+    LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUrVENDQStHZ0F3SUJBZ0lTQTQ4RDByZFk1dzFhQUdFc2ZBQ1dudE90TUEwR0NTcUdTSWIzRFFFQkN3VUEKTURNeEN6QUpCZ05WQkFZVEFsVlRNUll3RkFZRFZRUUtFdzFNWlhRbmN5QkZibU55ZVhCME1Rd3dDZ1lEVlFRRApFd05TTVRBd0hoY05NalF3T0RBM01EazFNVE16V2hjTk1qUXhNVEExTURrMU1UTXlXakFnTVI0d0hBWURWUVFECkRCVXFMbXh2WTJGc0xtNWxNVFF4TUhNdVkyOHVkV3N3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXcKZ2dFS0FvSUJBUUNDK090a0VyL2paTEpBd1QxVzR6OWt1WTcyWXJ3SDJyYmcreWxRY1NkbjVYcklJSHFEU0VYeQpBL3d0UHpGeDlld3hGUlFRTFJybmdOMmo5NDA4cHRDN3hERytjOWp4VzR5c3NkRlc4YmcvM0pjMWdPeXdmNFkzCmxpa0FhZ1NITTRVT2p0ZGRReWNObXNiUk14ei9ST002czF2UUFwQ042L1N4MFY2dXIzKzFsN1ZhTGhiVXpFb3YKTWRxOHJLdlBBazZ6T1VwSkFzazIvUlJVUG9vOU04aGk5dzkxazVtM01iUlNncXhrZThseVQza2pPencyWi9lVQpTZTg1MjdXL0J1Qi9NdGxSTTV6czRnUi9VWGNQcndRdXRxNktxQlROUjBiR2dvSE4yL1hYQ2lGOGw3Y2FJemVEClk4SDVaR1FzWHVCYVc4YXJhNlk3THJMMUlEaGJFclc1QWdNQkFBR2pnZ0lZTUlJQ0ZEQU9CZ05WSFE4QkFmOEUKQkFNQ0JhQXdIUVlEVlIwbEJCWXdGQVlJS3dZQkJRVUhBd0VHQ0NzR0FRVUZCd01DTUF3R0ExVWRFd0VCL3dRQwpNQUF3SFFZRFZSME9CQllFRk1sdGFtQVpUNHVvT3BBZ3FId3dRRlRSVmJ1c01COEdBMVVkSXdRWU1CYUFGTHU4CncwZWw1THlweHNPa2Nnd1FqYUkxNGNqb01GY0dDQ3NHQVFVRkJ3RUJCRXN3U1RBaUJnZ3JCZ0VGQlFjd0FZWVcKYUhSMGNEb3ZMM0l4TUM1dkxteGxibU55TG05eVp6QWpCZ2dyQmdFRkJRY3dBb1lYYUhSMGNEb3ZMM0l4TUM1cApMbXhsYm1OeUxtOXlaeTh3SUFZRFZSMFJCQmt3RjRJVktpNXNiMk5oYkM1dVpURTBNVEJ6TG1OdkxuVnJNQk1HCkExVWRJQVFNTUFvd0NBWUdaNEVNQVFJQk1JSUJBd1lLS3dZQkJBSFdlUUlFQWdTQjlBU0I4UUR2QUhZQWR2K0kKUHdxMis1VlJ3bUhNOVllNk5MU2t6YnNwM0doQ0NwL21aMHhhT25RQUFBR1JMSFhObndBQUJBTUFSekJGQWlFQQp0N09jUW8zS3ZCSEszbEZjZTJLeG4vWkVkNlpTTUFyazRRemM5MEcxR2V3Q0lEYUEwTDZiNmFlZmVVSXh2Zlc1CnJ2RWtpd2JPT29GRHQ1cEdIV1Q1MWpxRUFIVUFHWmdRY1FudzFsSXVNSURTbmo5a3U0TnVLTXo1RDFLTzd0L08KU2o4V3RNb0FBQUdSTEhYTnV3QUFCQU1BUmpCRUFpQnUwQWhYT3MvMWM2QnhRVlVlUW1FYTM0cHp0MStPN3ozOApUK29qNTdJSFN3SWdBcXB2Q2I2a1pVSHBvOHFxR0xjQ0VkRTJjTjFRbmROd0ZMUTJsaWdyL1hrd0RRWUpLb1pJCmh2Y05BUUVMQlFBRGdnRUJBSU9tYnZHMG5JcG5QUUFwMEVGV0dNeVEyVzVMbTRPMDhMRWpLUmtZSktGWStTclEKWG40Q3VzMCt0ZktFNllPNFo3MUtIMkc4c21oRUJWcEU4ZFBCekhPdGVsbmdBYmZiZmNseTVZSi9GU1MrT3ZBSAp3UzZFL0dJb2d1bFdGM0JMaGdaS2tlcVBiYXZpL3NLTzN1UjM2dkNKKzNzdFR2aDlnNXljQi9VcVIxZUtEc2NuCnIySW5pUWg0d29GTGdzcHU2UGV3WGIwa0hoeHlQdGlvZWJDSThpNTB1RjVLMWRJblVhb0FiWVdTV1hLK1V2SU0KZmtSTXA1eUNna2xNMVRieitWVHNtWGNidmZhVThCN096SHRpRjEyaWtvclEvNGgrTUc3bUNoc1kvWDFKaFFEdAozcUJ1VlhwUGRMTmdlZ0kxK1NIVkkxbFFHZE1weEU1dENkVWNJMFk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlGQlRDQ0F1MmdBd0lCQWdJUVM2aFNrL2VhTDZKekJrdW9CSTExMERBTkJna3Foa2lHOXcwQkFRc0ZBREJQCk1Rc3dDUVlEVlFRR0V3SlZVekVwTUNjR0ExVUVDaE1nU1c1MFpYSnVaWFFnVTJWamRYSnBkSGtnVW1WelpXRnkKWTJnZ1IzSnZkWEF4RlRBVEJnTlZCQU1UREVsVFVrY2dVbTl2ZENCWU1UQWVGdzB5TkRBek1UTXdNREF3TURCYQpGdzB5TnpBek1USXlNelU1TlRsYU1ETXhDekFKQmdOVkJBWVRBbFZUTVJZd0ZBWURWUVFLRXcxTVpYUW5jeUJGCmJtTnllWEIwTVF3d0NnWURWUVFERXdOU01UQXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUsKQW9JQkFRRFBWK1hteEZRUzdiUkgvc2tuV0haR1VDaU1IVDZJM3dXZDFiVVlLYjNkdFZxLyt2Yk9vNzZ2QUNGTApZbHBhUEFFdnhWZ0Q5b24vamhGRDY4RzE0QlFIbG85dkg5Zm51b0U1Q1hWbHQ4S3ZHRnMzSmlqbm8vUUhLMjBhCi82dFl2Sld1UVAvcHkxZkV0VnQvZUEwWVlid1g1MVRHdTBtUnpXNFkwWUNGN3FabE5yeDA2cnhRVE9yOElmTTQKRnBPVXVyRFRhemdHelJZU2VzcFNkY2l0ZHJMQ25GMllSVnh2WVh2R0xlNDhFMUtHQWRsWDVqZ2MzNDIxSDVLUgptdWRLSE14RnFISlY4TERtb3dmcy9hY2JacDQvU0l0eGhIRll5VHI2NzE3eVcwUXJQSFRuajdKSHdRZHF6WnEzCkRaYjNFb0VtVVZRSzdHSDI5L1hpOG9ySWxRMk5BZ01CQUFHamdmZ3dnZlV3RGdZRFZSMFBBUUgvQkFRREFnR0cKTUIwR0ExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVNCZ05WSFJNQkFmOEVDREFHQVFILwpBZ0VBTUIwR0ExVWREZ1FXQkJTN3ZNTkhwZVM4cWNiRHBISU1FSTJpTmVISTZEQWZCZ05WSFNNRUdEQVdnQlI1CnRGbm1lN2JsNUFGemdBaUl5QnBZOXVtYmJqQXlCZ2dyQmdFRkJRY0JBUVFtTUNRd0lnWUlLd1lCQlFVSE1BS0cKRm1oMGRIQTZMeTk0TVM1cExteGxibU55TG05eVp5OHdFd1lEVlIwZ0JBd3dDakFJQmdabmdRd0JBZ0V3SndZRApWUjBmQkNBd0hqQWNvQnFnR0lZV2FIUjBjRG92TDNneExtTXViR1Z1WTNJdWIzSm5MekFOQmdrcWhraUc5dzBCCkFRc0ZBQU9DQWdFQWtySG5RVGZyZVoyQjVzM2lKZUU2SU9tUVJKV2pnVnpQdzEzOXZhQncxYkdXS0NJTDB2SW8Kend6bjFPWkRqQ1FpSGNGQ2t0RUpyNTlMOU1od1R5QVdzVnJkQWZZZitCOWhheFFuc0hLTlk2N3U0czVMenpmZAp1NlBVemVldFVLMjl2K1BzUG1JMmNKa3hwK2lOM2VwaTRoS3U5WnpVUFN3TXF0Q2NlYjdxUFZ4RWJwWXhZMXA5CjFuNVBKS0JMQlg5ZWI5TFU2bDh6U3hQV1Y3YkszbEc0WGFNSmduVDl4M2llczdtc0Z0cEtLNWJEdG90aWovbDAKR2FLZUE5N3BiNXV3RDlLZ1d2YUZYTUlFdDhqVlRqTEV2d1JkdkNuMjk0R1BERjA4VThsQWtJdjd0Z2hsdWFRaAoxUW5sRTRTRU40TE9FQ2o4ZHNJR0pYcEdVazNhVTNLa0p6OWljS3krYVVnQSsyY1AyMXVoNk5jRElTM1h5ZmFaClFqbURROTkzQ2hJSThTWFd1cFFaVkJpSXBjV080UnFaazNscjdCejVNVUN3ekRJQTM1OWU1N1NTcTVDQ2tZME4KNEI2VnVsazdMa3Rmd3JkR05WSTVCc0M5cXF4U3dTS2dSSmVaOXd5Z0lhZWhiSEZIRmhjQmFNREtwaVpsQkh5egpyc25ubEZYQ2I1czhIS241THNVZ0d2QjI0TDdzR05aUDJDWDdkaEhvditZaEQram96TFcycDlXNDk1OUJ6MkVpClJtcUR0bWlYTG56cVRwWGJJK3N1eUNzb2hLUmc2VW4wUkM0NytjcGlWd0hpWFpBVytjbjhlaU5JanFiVmdYTHgKS1BwZHp2dnRUbk9QbEM3U1FaU1ltZHVucjNCZjliNzdBaUMvWmlkc3RLMzZkUklMS3o3T0E1ND0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  tls.key: >-
+    LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tDQpNSUlFdkFJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0JLWXdnZ1NpQWdFQUFvSUJBUUNDK090a0VyL2paTEpBDQp3VDFXNHo5a3VZNzJZcndIMnJiZyt5bFFjU2RuNVhySUlIcURTRVh5QS93dFB6Rng5ZXd4RlJRUUxScm5nTjJqDQo5NDA4cHRDN3hERytjOWp4VzR5c3NkRlc4YmcvM0pjMWdPeXdmNFkzbGlrQWFnU0hNNFVPanRkZFF5Y05tc2JSDQpNeHovUk9NNnMxdlFBcENONi9TeDBWNnVyMysxbDdWYUxoYlV6RW92TWRxOHJLdlBBazZ6T1VwSkFzazIvUlJVDQpQb285TThoaTl3OTFrNW0zTWJSU2dxeGtlOGx5VDNrak96dzJaL2VVU2U4NTI3Vy9CdUIvTXRsUk01enM0Z1IvDQpVWGNQcndRdXRxNktxQlROUjBiR2dvSE4yL1hYQ2lGOGw3Y2FJemVEWThINVpHUXNYdUJhVzhhcmE2WTdMckwxDQpJRGhiRXJXNUFnTUJBQUVDZ2dFQUY1NWhBSzU2NlR4dkFzdDJUdFZ6U0t4SDBqblM4ODJtM2lLYy9ETXpxb0pSDQpKb2JvNFFUbkRESll4eVlXdWhqaHE2WkQ5SGpWMmJxOC9ZVTJkS0lXa1UzYnRKODZsNmZ0VWZWTkxaTXdxVitUDQo2eU9oUzJEcjZObE04cFNyMVYvZWxsWC9FNFA1Sm5ScmR5MXpCTHU5Q0lod3ZhM0F1TDg4NU5ZL2Ixd1p1VHJzDQoveEVRYlBHSUc5dU5EZkRKeUdlZjJQcy9vQ0JPMXVFcSt1cUpQQlRCWHFXMkhSVFo0WHlSZkNyRDVJY2tabnlMDQpiRjFhNURQem9idlZFSTM4bTNTMzIzdDFCN1I1eVJsQ09TMnc5dS9OYTBlZXc5c2N2OUo3N2FzYnNkZi9DV3h3DQpmSnBPd0xTeEJUZUlEbWdzRXBQaEdJOURpeTExVzNWS2R0OU1RTUFLZ3dLQmdRQzVHZVBSY2FtUzVUSjFVQmhBDQphcmJ5akNoaVI4MDY3eVJoeDZTbUNkZUtOVWgxaUhMRmtMT2YyUm9EZE9yQklhM2IrNDZtSXV6VzdCQllVTWtsDQpPLzVDbVBpRm5rZVVNckN3eG05OWNpTU5yVTE1c3pCcGpLNlRkK0NhVi9vZ3NaRVBnUzVNRHNmNEM2aytEVVB4DQo0ZHVybEt6YzNRNHp6dEIvazdranlYQmdWd0tCZ1FDMUkyenpUWXBpV1JlRWZ6and3UXh3dE9EVDFJdTJoY3Z4DQpNNk9sZXBJb2R5ZDhSQjZRNHNLQjdzdUNKVUNnNmVJOXhkNXh0NGlhc09FWkdHRUJrb3Z6Z29tTk4xQkt3bFlVDQpKZzVIaWJYWTlVdlZTN1BxcDhYODhMV3h3NVl4OUZpdG9EN0s0Z29VVlBZc3JHSnFVME84WERyY3pNdG9kZ2xRDQpKMDFqUXhpUWJ3S0JnQlVVeGNXTTFHdE9meml0THBYbmtYNStSL3NwZ2s0Ny9rREVwQlBrK3c5YWtpNFFwRUdzDQpBVWtyU0xNc0ZiQjVUWHZJWXE2NU81QWV3cDNNVlp4UUFOMUUzc2taQmIzekoveDZIU2lFWDBtbmV6TnBIUkpvDQpXMW1nUll4T2lNWkFjdXo1SVhTNEdqNDkxY0NqY2lHU1A1cURERXo3UUNyV1d4aXNrbUZwQjh0eEFvR0FmcU84DQoyVUdkL1hKaVFjMGNoeDNBejg5MTNFT2VSa2EydGZTdmRkTUMrbTJMMnBKWmVGeEJOc3czMWM2cnA1UzlDd2thDQpveEI0M2dYSjZseWovWkJ5YmhZV2l2ZGdHRlJVRUJRbktaYTYzMnRuMEVEMEVadW9qVlhSQWU1SFJMZWJoQkFqDQp0bjVnSTZUZTA0N1Y0NVpCSmlDcE9wT25wbW5YeXdVZlVzV25GOXNDZ1lBSXg5N2lzNkFxN0VYd2Z3NE04Mlo4DQpsbWVIcENDK25qWndDL2JlMlZvRE5xN1l1NDRTakVCVk9hM2d1bGV0eVd0SlBQc1NoSU9IeGMyMktDR3VnbVNMDQozTlJ2UFFDQXg1dHpGZEsySWI2NVZNWnhaaEU5ZHlMazVIU01WZ2wwQldKSSt2aFlBTG9XdGRBUk9weDN5aHZTDQpaanRPUHhPRGRpR01SYmVOUGJoMWpRPT0NCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0NCg==
+---
+
+# portal.web
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portalweb-config
+  namespace: portal
+data:
+  env.js: >
+    window.__env = {
+      apiUrl: 'https://portalapi.local.ne1410s.co.uk',
+    };
+---
+
+# portal.web
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portalweb-deploy
+  namespace: portal
+  labels:
+    app: portalweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portalweb
+  template:
+    metadata:
+      labels:
+        app: portalweb
+    spec:
+      containers:
+      - name: portalweb-pod
+        image: ne1410s/portal.web:0.0.1
+        resources:
+          limits:
+            memory: 128Mi
+            cpu: '8'
+          requests:
+            memory: 128Mi
+            cpu: 100m
+        ports:
+        - containerPort: 80
+        env:
+        # use downward api to save messing around with role permissions, etc when trying
+        # to scrape and apply these simple properties later on the observability stack
+        - name: K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: K8S_APP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['app']
+        - name: K8S_POD
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: portalweb-volume
+          mountPath: /usr/share/nginx/html/assets
+      volumes:
+      - name: portalweb-volume
+        configMap:
+          name: portalweb-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portalweb-service
+  namespace: portal
+spec:
+  type: ClusterIP
+  selector:
+    app: portalweb
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portalweb-localhost
+  namespace: portal
+  #annotations:
+    ## Uncomment this block for 'dynamic' tls (must be hosted cluster)
+    #cert-manager.io/cluster-issuer: letsencrypt-issuer
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - portal.local.ne1410s.co.uk
+    secretName: ingress-tls-cert
+  rules:
+  - host: portal.local.ne1410s.co.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: portalweb-service
+            port:
+              number: 80
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
+---
+
+# portal.api
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portalapi-config
+  namespace: portal
+data:
+  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
+  OpenTel__Grpc: "http://otel-collector.monitoring:4317"
+  RabbitMq__Hostname: "rabbitmq-service.mq"
+  RabbitMq__Port: "5672"
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portalapi-deploy
+  namespace: portal
+  labels:
+    app: portalapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portalapi
+  template:
+    metadata:
+      labels:
+        app: portalapi
+    spec:
+      containers:
+      - name: portalapi-pod
+        image: ne1410s/portal.api:0.0.1
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: '8'
+          requests:
+            memory: 256Mi
+            cpu: 40m
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: portalapi-config
+        env:
+        # use downward api to save messing around with role permissions, etc when trying
+        # to scrape and apply these simple properties later on the observability stack
+        - name: K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: K8S_APP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['app']
+        - name: K8S_POD
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          failureThreshold: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz/ready
+            port: 8080
+          initialDelaySeconds: 15
+          failureThreshold: 3
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz/live
+            port: 8080
+          failureThreshold: 1
+          periodSeconds: 60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portalapi-service
+  namespace: portal
+spec:
+  type: ClusterIP
+  selector:
+    app: portalapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portalapi-localhost
+  namespace: portal
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    # Uncomment below for 'dynamic' tls (must be hosted cluster)
+    #cert-manager.io/cluster-issuer: letsencrypt-issuer
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - portalapi.local.ne1410s.co.uk
+    secretName: ingress-tls-cert
+  rules:
+  - host: portalapi.local.ne1410s.co.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: portalapi-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
+---
+# allows us to hit up "azurite" (single hostname in default ns) from anywhere in this ns - just to make azurite work!
+apiVersion: v1
+kind: Service
+metadata:
+  name: azurite
+  namespace: portal
+spec:
+  type: ExternalName
+  externalName: azurite-service.default.svc.cluster.local
+---

@@ -13,7 +13,7 @@ config:
       protocols:
         grpc: {}
         http: {}
-  
+
   processors:
     attributes/logs:
       actions:

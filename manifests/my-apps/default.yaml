@@ -16,7 +16,7 @@ spec:
     metadata:
       labels:
         app: azurite
-    spec: 
+    spec:
       containers:
       - name: azurite-pod
         image: mcr.microsoft.com/azure-storage/azurite:3.29.0
@@ -46,7 +46,7 @@ spec:
           valueFrom:
             fieldRef:
               apiVersion: v1
-              fieldPath: metadata.name   
+              fieldPath: metadata.name
 ---
 
 apiVersion: v1
