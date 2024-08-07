@@ -17,7 +17,7 @@ kind: Ingress
 metadata:
   name: prometheus-ui
   namespace: monitoring
-  annotations:
+  #annotations:
     ## Uncomment next line for 'dynamic' tls (must be hosted cluster)
     #cert-manager.io/cluster-issuer: letsencrypt-issuer
 spec:
@@ -48,7 +48,7 @@ kind: Ingress
 metadata:
   name: grafana-localhost
   namespace: monitoring
-  annotations:
+  #annotations:
     ## Uncomment next line for 'dynamic' tls (must be hosted cluster)
     #cert-manager.io/cluster-issuer: letsencrypt-issuer
 spec:
