@@ -71,3 +71,17 @@ Use your cluster to save spinning containers up separately!  (the below is done 
   - kubectl port-forward -n fileman service/gotenberg-service 32002:3000
 
 Viewing the promtail-daemonset pod logs also proved useful when writing this guide!
+
+# Sync helm repositories
+Having matching helm repos allows us to identify upgrades / available versions more easily, (inc. in Lens!)
+
+```bash
+# match the repos in helmfile!
+helm repo remove bitnami; `
+  helm repo add jetstack https://charts.jetstack.io; `
+  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx; `
+  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts; `
+  helm repo add grafana https://grafana.github.io/helm-charts; `
+  helm repo add otel https://open-telemetry.github.io/opentelemetry-helm-charts; `
+  helm repo update;
+```
