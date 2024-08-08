@@ -1,0 +1,4 @@
+releases:
+
+- name: dev-mode
+  chart: ../manifests/dev-mode
