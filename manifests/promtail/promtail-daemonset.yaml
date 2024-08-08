@@ -89,7 +89,7 @@ data:
       grpc_listen_port: 0
 
     clients:
-    - url: http://otel-collector.monitoring:3500/loki/api/v1/push
+    - url: http://opentelemetry-collector.monitoring:3500/loki/api/v1/push
 
     positions:
       filename: /tmp/positions.yaml

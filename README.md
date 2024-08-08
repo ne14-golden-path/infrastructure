@@ -3,7 +3,8 @@ Shared infrastructure
 
 # deploy infra
 ```bash
-# deploys the contents of helmfile.yaml (requires linux)
+# deploys the contents of helmfile.d (via container, as helmfile requires linux helm plugins)
+# NB: The helmfile.d approach is a workaround to allow 1-click deploy, as otel apprarently cant be made to wait for cert-man CRDs :/
 docker run --rm --net=host -v "${HOME}/.kube:/helm/.kube" -v "${PWD}:/wd" --workdir /wd ghcr.io/helmfile/helmfile:v0.167.1 helmfile apply
 ```
 
@@ -55,20 +56,21 @@ One way to directly access loki-specific metrics is by port-forwarding the servi
 To directly access promtail targets, etc we can port-forward the daemonset:
   - kubectl port-forward -n monitoring daemonset/promtail-daemonset 9080
   - http://localhost:9080/targets
-  
+
 To view zpages (opentel experimental ui), port-forward as follows:
-  - kubectl port-forward -n monitoring service/otel-collector 55679
+  - kubectl port-forward -n monitoring service/opentelemetry-collector 55679
   - http://localhost:55679/debug/servicez
   - http://localhost:55679/debug/tracez
-  
+
 To view open-telemetry metrics directly:
-  - kubectl port-forward -n monitoring service/otel-collector 59090
+  - kubectl port-forward -n monitoring service/opentelemetry-collector 59090
   - http://localhost:59090/metrics
-  
+
 Use your cluster to save spinning containers up separately!  (the below is done automatically in stage06 using NodePorts!)
   - kubectl port-forward -n mq service/rabbitmq-service 32000:5672
   - kubectl port-forward -n fileman service/clamav-service 32001:3310
   - kubectl port-forward -n fileman service/gotenberg-service 32002:3000
+  - kubectl port-forward -n default service/azurite-service 32003:10000
 
 Viewing the promtail-daemonset pod logs also proved useful when writing this guide!
 

@@ -6,9 +6,9 @@ image:
 config:
   receivers:
     loki/promtail:
-      protocols:
-        http:
       use_incoming_timestamp: true
+      protocols:
+        http: {}
     otlp:
       protocols:
         grpc: {}
@@ -34,20 +34,16 @@ config:
       tls:
         insecure: true
     prometheus:
-      endpoint: ':59090'
+      endpoint: '0.0.0.0:59090'
     otlp/tempo:
       endpoint: tempo:4317
       tls:
         insecure: true
-    otlp/jaeger:
-      endpoint: jaeger-collector:4317
-      tls:
-        insecure: true
-  
+
   extensions:
     zpages: {}
     health_check: {}
-  
+
   service:
     extensions: [zpages, health_check]
     pipelines:
@@ -61,7 +57,7 @@ config:
         exporters: [prometheus]
       traces:
         receivers: [otlp]
-        exporters: [otlp/tempo, otlp/jaeger]
+        exporters: [otlp/tempo]
 ports:
   otel-zpages:
     enabled: true

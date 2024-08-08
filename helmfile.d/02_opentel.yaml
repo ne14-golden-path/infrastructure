@@ -12,7 +12,7 @@ releases:
   namespace: monitoring
   set:
   - name: manager.collectorImage.repository
-    value: otel/opentelemetry-collector
+    value: otel/opentelemetry-collector-contrib
   - name: admissionWebhooks.certManager.enabled
     value: true
 

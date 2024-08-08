@@ -143,7 +143,7 @@ metadata:
   namespace: portal
 data:
   AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
-  OpenTel__Grpc: "http://otel-collector.monitoring:4317"
+  OpenTel__Grpc: "http://opentelemetry-collector.monitoring:4317"
   RabbitMq__Hostname: "rabbitmq-service.mq"
   RabbitMq__Port: "5672"
 ---
