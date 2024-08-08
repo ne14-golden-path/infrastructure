@@ -1,14 +1,16 @@
 repositories:
+
 - name: jetstack
   url: https://charts.jetstack.io
+
 - name: ingress-nginx
   url: https://kubernetes.github.io/ingress-nginx
+
 - name: prometheus-community
   url: https://prometheus-community.github.io/helm-charts
+
 - name: grafana
   url: https://grafana.github.io/helm-charts
-- name: otel
-  url: https://open-telemetry.github.io/opentelemetry-helm-charts
 
 
 releases:
@@ -39,14 +41,14 @@ releases:
   version: 8.4.0
   namespace: monitoring
   values:
-  - ./values/grafana-values.yaml
+  - ../values/grafana-values.yaml
 
 - name: monitoring-ingresses
-  chart: ./manifests/monitoring-ingresses
+  chart: ../manifests/monitoring-ingresses
   namespace: monitoring
 
 - name: promtail
-  chart: ./manifests/promtail
+  chart: ../manifests/promtail
   namespace: monitoring
 
 - name: loki
@@ -54,29 +56,12 @@ releases:
   version: 6.7.3
   namespace: monitoring
   values:
-  - ./values/loki-values.yaml
+  - ../values/loki-values.yaml
 
 - name: tempo
   chart: grafana/tempo
   version: 1.10.1
   namespace: monitoring
 
-- name: opentelemetry-operator
-  chart: otel/opentelemetry-operator
-  version: 0.66.0
-  namespace: monitoring
-  set:
-  - name: manager.collectorImage.repository
-    value: otel/opentelemetry-collector
-  - name: admissionWebhooks.certManager.enabled
-    value: true
-
-- name: opentelemetry-collector
-  chart: otel/opentelemetry-collector
-  version: 0.101.2
-  namespace: monitoring
-  values:
-  - ./values/otel-collector-values.yaml
-
 - name: my-apps
-  chart: ./manifests/my-apps
+  chart: ../manifests/my-apps
