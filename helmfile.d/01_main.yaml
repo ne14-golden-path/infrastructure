@@ -32,9 +32,8 @@ releases:
   chart: prometheus-community/prometheus
   version: 25.25.0
   namespace: monitoring
-  set:
-  - name: prometheus-node-exporter.hostRootFsMount.enabled
-    value: false
+  values:
+  - ../values/prometheus-values.yaml
 
 - name: grafana
   chart: grafana/grafana
