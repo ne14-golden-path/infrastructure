@@ -89,7 +89,12 @@ data:
       grpc_listen_port: 0
 
     clients:
-    - url: http://opentelemetry-collector.monitoring:3500/loki/api/v1/push
+
+    # Send direct to loki
+    - url: http://loki-gateway/loki/api/v1/push
+    
+    # Attempt to send via otel...?
+    #- url: http://opentelemetry-collector:3500
 
     positions:
       filename: /tmp/positions.yaml

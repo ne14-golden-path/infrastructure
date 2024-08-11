@@ -5,10 +5,11 @@ image:
   repository: otel/opentelemetry-collector-contrib
 config:
   receivers:
-    loki/promtail:
+    loki:
       use_incoming_timestamp: true
       protocols:
-        http: {}
+        http:
+          endpoint: localhost:3500
     otlp:
       protocols:
         grpc: {}
@@ -34,7 +35,7 @@ config:
       tls:
         insecure: true
     prometheus:
-      endpoint: '0.0.0.0:59090'
+      endpoint: 'localhost:59090'
     otlp/tempo:
       endpoint: tempo:4317
       tls:
@@ -48,7 +49,7 @@ config:
     extensions: [zpages, health_check]
     pipelines:
       logs:
-        receivers: [loki/promtail]
+        receivers: [loki]
         processors: [attributes/logs]
         exporters: [loki]
       metrics:
