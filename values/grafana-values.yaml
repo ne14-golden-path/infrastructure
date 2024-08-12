@@ -7,14 +7,17 @@ datasources:
     datasources:
     - name: Tempo
       type: tempo
+      uid: tempo_src_001
       editable: false
       url: http://tempo:3100
     - name: Prometheus
       type: prometheus
+      uid: prom_src_001
       editable: false
       url: http://prometheus-server
     - name: Loki
       type: loki
+      uid: loki_src_001
       editable: false
       url: http://loki-gateway
       jsonData:
@@ -40,16 +43,6 @@ dashboards:
     loki:
       json: |
         {
-          "__inputs": [
-            {
-              "name": "DS_LOKI",
-              "label": "Loki",
-              "description": "",
-              "type": "datasource",
-              "pluginId": "loki",
-              "pluginName": "Loki"
-            }
-          ],
           "__elements": {},
           "__requires": [
             {
@@ -112,7 +105,7 @@ dashboards:
             {
               "datasource": {
                 "type": "loki",
-                "uid": "${DS_LOKI}"
+                "uid": "loki_src_001"
               },
               "fieldConfig": {
                 "defaults": {
@@ -194,7 +187,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "loki",
-                    "uid": "${DS_LOKI}"
+                    "uid": "loki_src_001"
                   },
                   "expr": "sum(count_over_time({namespace=\"$var_namespace\", app=~\"$var_app\", pod=~\"$var_instance\"} |~ \"$var_search\"[$__interval]))",
                   "refId": "A"
@@ -205,7 +198,7 @@ dashboards:
             {
               "datasource": {
                 "type": "loki",
-                "uid": "${DS_LOKI}"
+                "uid": "loki_src_001"
               },
               "gridPos": {
                 "h": 25,
@@ -229,7 +222,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "loki",
-                    "uid": "${DS_LOKI}"
+                    "uid": "loki_src_001"
                   },
                   "expr": "{namespace=\"$var_namespace\", app=~\"$var_app\", pod=~\"$var_instance\"} |~ \"$var_search\"",
                   "refId": "A"
@@ -248,7 +241,7 @@ dashboards:
                 "current": {},
                 "datasource": {
                   "type": "loki",
-                  "uid": "${DS_LOKI}"
+                  "uid": "loki_src_001"
                 },
                 "definition": "",
                 "hide": 0,
@@ -277,7 +270,7 @@ dashboards:
                 "current": {},
                 "datasource": {
                   "type": "loki",
-                  "uid": "${DS_LOKI}"
+                  "uid": "loki_src_001"
                 },
                 "definition": "",
                 "hide": 0,
@@ -306,7 +299,7 @@ dashboards:
                 "current": {},
                 "datasource": {
                   "type": "loki",
-                  "uid": "${DS_LOKI}"
+                  "uid": "loki_src_001"
                 },
                 "definition": "",
                 "hide": 0,
