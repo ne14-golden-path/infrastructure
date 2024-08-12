@@ -92,9 +92,9 @@ data:
 
     # Send direct to loki
     - url: http://loki-gateway/loki/api/v1/push
-    
+
     # Attempt to send via otel...?
-    #- url: http://opentelemetry-collector:3500
+    #- url: http://opentelemetry-collector:3500/loki/api/v1/push
 
     positions:
       filename: /tmp/positions.yaml

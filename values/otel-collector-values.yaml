@@ -10,10 +10,14 @@ config:
       protocols:
         http:
           endpoint: localhost:3500
+        #grpc:
+        #  endpoint: localhost:3600
     otlp:
       protocols:
-        grpc: {}
-        http: {}
+        grpc:
+          endpoint: localhost:4317
+        http:
+          endpoint: localhost:4318
 
   processors:
     attributes/logs:
@@ -34,10 +38,10 @@ config:
       endpoint: http://loki-gateway/loki/api/v1/push
       tls:
         insecure: true
-    prometheus:
-      endpoint: 'localhost:59090'
-    otlp/tempo:
-      endpoint: tempo:4317
+    # prometheus:
+    #   endpoint: localhost:59090
+    otlphttp:
+      endpoint: http://tempo:4318
       tls:
         insecure: true
 
@@ -52,13 +56,13 @@ config:
         receivers: [loki]
         processors: [attributes/logs]
         exporters: [loki]
-      metrics:
-        receivers: [otlp]
-        # processors: [attributes/metrics]
-        exporters: [prometheus]
+      # metrics:
+      #   receivers: [otlp]
+      #   # processors: [attributes/metrics]
+      #   exporters: [prometheus]
       traces:
         receivers: [otlp]
-        exporters: [otlp/tempo]
+        exporters: [otlphttp]
 ports:
   otel-zpages:
     enabled: true
@@ -67,9 +71,19 @@ ports:
     hostPort: 55679
   otel-loki:
     enabled: true
+    protocol: TCP
     containerPort: 3500
     servicePort: 3500
     hostPort: 3500
+  # prevent unneeded ports from being opened
+  jaeger-compact:
+    enabled: false
+  jaeger-thrift:
+    enabled: false
+  jaeger-grpc:
+    enabled: false
+  zipkin:
+    enabled: false
 resources:
   limits:
     cpu: 250m
