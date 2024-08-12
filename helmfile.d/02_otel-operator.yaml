@@ -6,18 +6,9 @@ repositories:
 
 releases:
 
-- name: otel-operator
-  chart: otel/opentelemetry-operator
-  version: 0.66.0
-  namespace: monitoring
-  set:
-  - name: manager.collectorImage.repository
-    value: otel/opentelemetry-collector-contrib
-  - name: admissionWebhooks.certManager.enabled
-    value: true
-
 - name: otel-collector
-  chart: ../manifests/otel-collector
+  chart: otel/opentelemetry-collector
+  version: 0.101.2
   namespace: monitoring
-  needs:
-  - monitoring/otel-operator
+  values:
+  - ../values/otel-collector-values.yaml
