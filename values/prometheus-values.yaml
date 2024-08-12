@@ -19,11 +19,11 @@
     - targets:
       - localhost:9090
   # PJ added this one...?
-  - job_name: opentelemetry-metrics
+  - job_name: otel-metrics
     scrape_interval: 5s
     static_configs:
     - targets:
-      - opentelemetry-collector:59090
+      - otel-collector.monitoring:59090
   - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
     job_name: kubernetes-apiservers
     kubernetes_sd_configs:

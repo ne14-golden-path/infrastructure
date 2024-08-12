@@ -1,0 +1,68 @@
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel
+  namespace: monitoring
+spec:
+  config:
+    receivers:
+      loki/promtail:
+        protocols:
+          http:
+        use_incoming_timestamp: true
+      otlp:
+        protocols:
+          grpc:
+          http:
+    processors:
+      attributes/logs:
+        actions:
+        - action: insert
+          key: loki.attribute.labels
+          value: namespace, app, pod, job
+        - action: insert
+          key: loki.format
+          value: raw
+      # attributes/metrics:
+      #   actions:
+      #   - action: delete
+      #     key: instance
+
+    exporters:
+      loki:
+        endpoint: http://loki-gateway/loki/api/v1/push
+        tls:
+          insecure: true
+      prometheus:
+        endpoint: ':59090'
+      otlp/tempo:
+        endpoint: tempo:4317
+        tls:
+          insecure: true
+      otlp/jaeger:
+        endpoint: jaeger-collector:4317
+        tls:
+          insecure: true
+    extensions:
+      zpages:
+    service:
+      extensions: [zpages]
+      pipelines:
+        logs:
+          receivers: [loki/promtail]
+          processors: [attributes/logs]
+          exporters: [loki]
+        metrics:
+          receivers: [otlp]
+          # processors: [attributes/metrics]
+          exporters: [prometheus]
+        traces:
+          receivers: [otlp]
+          exporters: [otlp/tempo, otlp/jaeger]
+  ports:
+    - name: otel-zpages
+      port: 55679
+      targetPort: 55679
+    - name: otel-loki
+      port: 3500
+      targetPort: 3500
