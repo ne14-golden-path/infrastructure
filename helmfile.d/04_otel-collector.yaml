@@ -1,0 +1,16 @@
+# This does NOT roll out with 1-click, despite best efforts :(
+# Check Helm releases in OpenLens; usually the otel-collector is marked as FAILED after the first try
+# It then seems to need to be physically removed (e.g. via OpenLens) before re-running
+
+releases:
+
+- name: otel-collector
+  chart: ../manifests/otel-collector
+  namespace: monitoring
+
+# - name: opentelemetry-collector
+#   chart: otel/opentelemetry-collector
+#   version: 0.101.2
+#   namespace: monitoring
+#   values:
+#   - ../values/otel-collector-values.yaml

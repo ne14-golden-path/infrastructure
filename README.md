@@ -58,12 +58,12 @@ To directly access promtail targets, etc we can port-forward the daemonset:
   - http://localhost:9080/targets
 
 To view zpages (opentel experimental ui), port-forward as follows:
-  - kubectl port-forward -n monitoring service/opentelemetry-collector 55679
+  - kubectl port-forward -n monitoring service/otel-collector 55679
   - http://localhost:55679/debug/servicez
   - http://localhost:55679/debug/tracez
 
 To view open-telemetry metrics directly:
-  - kubectl port-forward -n monitoring service/opentelemetry-collector 59090
+  - kubectl port-forward -n monitoring service/otel-collector 59090
   - http://localhost:59090/metrics
 
 Use your cluster to save spinning containers up separately!  (the below is done automatically in stage06 using NodePorts!)
