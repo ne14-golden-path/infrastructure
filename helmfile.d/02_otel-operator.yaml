@@ -1,17 +1,17 @@
-repositories:
+# repositories:
 
-- name: otel
-  url: https://open-telemetry.github.io/opentelemetry-helm-charts
+# - name: otel
+#   url: https://open-telemetry.github.io/opentelemetry-helm-charts
 
 
-releases:
+# releases:
 
-- name: otel-operator
-  chart: otel/opentelemetry-operator
-  version: 0.66.0
-  namespace: monitoring
-  set:
-  - name: manager.collectorImage.repository
-    value: otel/opentelemetry-collector-contrib
-  - name: admissionWebhooks.certManager.enabled
-    value: true
+# - name: otel-operator
+#   chart: otel/opentelemetry-operator
+#   version: 0.66.0
+#   namespace: monitoring
+#   set:
+#   - name: manager.collectorImage.repository
+#     value: otel/opentelemetry-collector-contrib
+#   - name: admissionWebhooks.certManager.enabled
+#     value: true
