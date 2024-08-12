@@ -94,7 +94,7 @@ data:
     - url: http://loki-gateway/loki/api/v1/push
 
     # Attempt to send via otel...?
-    #- url: http://otel-collector:3500/loki/api/v1/push
+    #- url: http://opentelemetry-collector:3500/loki/api/v1/push
 
     positions:
       filename: /tmp/positions.yaml

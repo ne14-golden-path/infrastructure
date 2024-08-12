@@ -144,7 +144,7 @@ data:
   ClamAv__Port: "3310"
   GotenbergSharpClient__HealthCheckUrl: "http://gotenberg-service.fileman:3000/health"
   GotenbergSharpClient__ServiceUrl: "http://gotenberg-service.fileman:3000"
-  OpenTel__Grpc: "http://otel-collector.monitoring:4317"
+  OpenTel__Grpc: "http:/opentelemetry-collector.monitoring:4317"
   RabbitMq__Hostname: "rabbitmq-service.mq"
   RabbitMq__Port: "5672"
 ---

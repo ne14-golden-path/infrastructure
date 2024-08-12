@@ -6,7 +6,7 @@ repositories:
 
 releases:
 
-- name: otel-collector
+- name: opentelemetry-collector
   chart: otel/opentelemetry-collector
   version: 0.101.2
   namespace: monitoring
