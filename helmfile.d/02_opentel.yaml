@@ -12,14 +12,12 @@ releases:
   namespace: monitoring
   set:
   - name: manager.collectorImage.repository
-    value: otel/opentelemetry-collector-contrib
+    value: otel/opentelemetry-collector-k8s
   - name: admissionWebhooks.certManager.enabled
+    value: false
+  - name: admissionWebhooks.autoGenerateCert.enabled
     value: true
 
 - name: opentelemetry-collector
-  chart: otel/opentelemetry-collector
-  version: 0.101.2
+  chart: ../manifests/otel-collector
   namespace: monitoring
-  values:
-  - ../values/otel-collector-values.yaml
-
