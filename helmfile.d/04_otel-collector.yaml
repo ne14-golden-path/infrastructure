@@ -1,0 +1,5 @@
+releases:
+
+- name: otel-collector
+  chart: ../manifests/otel-collector
+  namespace: monitoring

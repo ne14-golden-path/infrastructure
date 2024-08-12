@@ -1,0 +1,4 @@
+releases:
+
+- name: dev-ports
+  chart: ../manifests/dev-ports
