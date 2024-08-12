@@ -40,6 +40,24 @@ dashboards:
     loki:
       json: |
         {
+          "__inputs": [
+            {
+              "name": "DS_LOKI",
+              "label": "Loki",
+              "description": "",
+              "type": "datasource",
+              "pluginId": "loki",
+              "pluginName": "Loki"
+            }
+          ],
+          "__requires": [
+            {
+              "type": "datasource",
+              "id": "loki",
+              "name": "Loki",
+              "version": "1.0.0"
+            }
+          ],
           "annotations": {
             "list": [
               {
@@ -53,112 +71,117 @@ dashboards:
                 "hide": true,
                 "iconColor": "rgba(0, 211, 255, 1)",
                 "name": "Annotations & Alerts",
+                "target": {
+                  "limit": 100,
+                  "matchAny": false,
+                  "tags": [],
+                  "type": "dashboard"
+                },
                 "type": "dashboard"
               }
             ]
           },
-          "description": "Loki logs panel with prometheus variables ",
-          "editable": true,
-          "fiscalYearStartMonth": 0,
+          "description": "Loki Logs",
+          "fiscalYearStartMonth": 3,
           "gnetId": 12019,
           "graphTooltip": 0,
-          "id": 3,
           "links": [],
+          "liveNow": false,
           "panels": [
             {
+              "aliasColors": {},
+              "bars": true,
+              "dashLength": 10,
+              "dashes": false,
               "datasource": {
                 "type": "loki",
-                "uid": "P8E80F9AEF21F6940"
+                "uid": "${DS_LOKI}"
               },
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "",
-                    "axisPlacement": "hidden",
-                    "barAlignment": 0,
-                    "drawStyle": "bars",
-                    "fillOpacity": 100,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 1,
-                    "pointSize": 5,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "never",
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "off"
-                    }
-                  },
-                  "mappings": [],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green"
-                      },
-                      {
-                        "color": "red",
-                        "value": 80
-                      }
-                    ]
-                  },
-                  "unit": "short"
+                  "links": []
                 },
                 "overrides": []
               },
+              "fill": 1,
+              "fillGradient": 0,
               "gridPos": {
                 "h": 3,
                 "w": 24,
                 "x": 0,
                 "y": 0
               },
+              "hiddenSeries": false,
               "id": 6,
-              "options": {
-                "legend": {
-                  "calcs": [],
-                  "displayMode": "list",
-                  "placement": "bottom",
-                  "showLegend": false
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "none"
-                }
+              "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": false,
+                "total": false,
+                "values": false
               },
+              "lines": false,
+              "linewidth": 1,
+              "nullPointMode": "null",
+              "options": {
+                "alertThreshold": true
+              },
+              "percentage": false,
+              "pluginVersion": "10.2.2",
+              "pointradius": 2,
+              "points": false,
+              "renderer": "flot",
+              "seriesOverrides": [],
+              "spaceLength": 10,
+              "stack": false,
+              "steppedLine": false,
               "targets": [
                 {
                   "datasource": {
                     "type": "loki",
-                    "uid": "P8E80F9AEF21F6940"
+                    "uid": "${DS_LOKI}"
                   },
-                  "expr": "sum(count_over_time({namespace=\"$namespace\", instance=~\"$pod\"} |~ \"$search\"[$__interval]))",
+                  "expr": "sum(count_over_time({namespace=\"$var_namespace\", app=~\"$var_app\", pod=~\"$var_instance\"} |~ \"$var_search\"[$__interval]))",
                   "refId": "A"
                 }
               ],
-              "type": "timeseries"
+              "thresholds": [],
+              "timeRegions": [],
+              "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+              },
+              "type": "graph",
+              "xaxis": {
+                "mode": "time",
+                "show": true,
+                "values": []
+              },
+              "yaxes": [
+                {
+                  "$$hashKey": "object:168",
+                  "format": "short",
+                  "logBase": 1,
+                  "show": false
+                },
+                {
+                  "$$hashKey": "object:169",
+                  "format": "short",
+                  "logBase": 1,
+                  "show": false
+                }
+              ],
+              "yaxis": {
+                "align": false
+              }
             },
             {
               "datasource": {
                 "type": "loki",
-                "uid": "P8E80F9AEF21F6940"
+                "uid": "${DS_LOKI}"
               },
               "gridPos": {
                 "h": 25,
@@ -182,42 +205,17 @@ dashboards:
                 {
                   "datasource": {
                     "type": "loki",
-                    "uid": "P8E80F9AEF21F6940"
+                    "uid": "${DS_LOKI}"
                   },
-                  "expr": "{namespace=\"$namespace\", instance=~\"$pod\"} |~ \"$search\"",
+                  "expr": "{namespace=\"$var_namespace\", app=~\"$var_app\", pod=~\"$var_instance\"} |~ \"$var_search\"",
                   "refId": "A"
                 }
               ],
               "title": "Logs Panel",
               "type": "logs"
-            },
-            {
-              "content": "<div style=\"text-align:center\"> For Grafana Loki blog example </div>\n\n\n",
-              "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-              },
-              "gridPos": {
-                "h": 3,
-                "w": 24,
-                "x": 0,
-                "y": 28
-              },
-              "id": 4,
-              "mode": "html",
-              "targets": [
-                {
-                  "datasource": {
-                    "type": "datasource",
-                    "uid": "grafana"
-                  },
-                  "refId": "A"
-                }
-              ],
-              "transparent": true,
-              "type": "text"
             }
           ],
+          "refresh": "",
           "schemaVersion": 39,
           "tags": [],
           "templating": {
@@ -225,20 +223,26 @@ dashboards:
               {
                 "current": {
                   "selected": false,
-                  "text": "cert-manager",
-                  "value": "cert-manager"
+                  "text": "default",
+                  "value": "default"
                 },
                 "datasource": {
-                  "type": "prometheus",
-                  "uid": "PBFA97CFB590B2093"
+                  "type": "loki",
+                  "uid": "${DS_LOKI}"
                 },
-                "definition": "label_values(kube_pod_info, namespace)",
+                "definition": "",
                 "hide": 0,
                 "includeAll": false,
+                "label": "Namespace",
                 "multi": false,
-                "name": "namespace",
+                "name": "var_namespace",
                 "options": [],
-                "query": "label_values(kube_pod_info, namespace)",
+                "query": {
+                  "label": "namespace",
+                  "refId": "LokiVariableQueryEditor-VariableQuery",
+                  "stream": "",
+                  "type": 1
+                },
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -256,16 +260,55 @@ dashboards:
                   "value": "$__all"
                 },
                 "datasource": {
-                  "type": "prometheus",
-                  "uid": "PBFA97CFB590B2093"
+                  "type": "loki",
+                  "uid": "${DS_LOKI}"
                 },
-                "definition": "label_values(container_network_receive_bytes_total{namespace=~\"$namespace\"},pod)",
+                "definition": "",
                 "hide": 0,
                 "includeAll": true,
-                "multi": true,
-                "name": "pod",
+                "label": "App",
+                "multi": false,
+                "name": "var_app",
                 "options": [],
-                "query": "label_values(container_network_receive_bytes_total{namespace=~\"$namespace\"},pod)",
+                "query": {
+                  "label": "app",
+                  "refId": "LokiVariableQueryEditor-VariableQuery",
+                  "stream": "{namespace=\"$var_namespace\"}",
+                  "type": 1
+                },
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "tagValuesQuery": "",
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+              },
+              {
+                "allValue": ".*",
+                "current": {
+                  "selected": false,
+                  "text": "All",
+                  "value": "$__all"
+                },
+                "datasource": {
+                  "type": "loki",
+                  "uid": "${DS_LOKI}"
+                },
+                "definition": "",
+                "hide": 0,
+                "includeAll": true,
+                "label": "Pod",
+                "multi": false,
+                "name": "var_instance",
+                "options": [],
+                "query": {
+                  "label": "pod",
+                  "refId": "LokiVariableQueryEditor-VariableQuery",
+                  "stream": "{namespace=\"$var_namespace\", app=~\"$var_app\"}",
+                  "type": 1
+                },
                 "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
@@ -278,19 +321,20 @@ dashboards:
               {
                 "current": {
                   "selected": false,
-                  "text": "level=warn",
-                  "value": "level=warn"
+                  "text": "",
+                  "value": ""
                 },
                 "hide": 0,
-                "name": "search",
+                "label": "Text Search",
+                "name": "var_search",
                 "options": [
                   {
                     "selected": true,
-                    "text": "level=warn",
-                    "value": "level=warn"
+                    "text": "",
+                    "value": ""
                   }
                 ],
-                "query": "level=warn",
+                "query": "",
                 "skipUrlSync": false,
                 "type": "textbox"
               }
@@ -305,19 +349,12 @@ dashboards:
               "5s",
               "10s",
               "30s",
-              "1m",
-              "5m",
-              "15m",
-              "30m",
-              "1h",
-              "2h",
-              "1d"
+              "1m"
             ]
           },
           "timezone": "",
-          "title": "Loki Dashboard quick search",
-          "uid": "lizz0RiZz",
-          "version": 2,
+          "title": "Loki Logs",
+          "uid": "lizz0RiZZ",
+          "version": 1,
           "weekStart": ""
         }
-
