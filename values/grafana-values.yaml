@@ -10,6 +10,10 @@ datasources:
       uid: tempo_src_001
       editable: false
       url: http://tempo:3100
+      jsonData:
+        nodeGraph:
+          enabled: true
+        datasourceUid: prom_src_001
     - name: Prometheus
       type: prometheus
       uid: prom_src_001
