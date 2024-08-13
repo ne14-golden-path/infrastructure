@@ -13,7 +13,8 @@ datasources:
       jsonData:
         nodeGraph:
           enabled: true
-        datasourceUid: prom_src_001
+        serviceMap:
+          datasourceUid: prom_src_001
     - name: Prometheus
       type: prometheus
       uid: prom_src_001

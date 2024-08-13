@@ -3,6 +3,8 @@ server:
     scrape_interval: 30s
     scrape_timeout: 10s
     evaluation_interval: 1m
+  extraArgs:
+    web.enable-remote-write-receiver: null
 
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
