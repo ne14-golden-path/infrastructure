@@ -67,6 +67,10 @@ To view open-telemetry metrics directly:
   - kubectl port-forward -n monitoring service/otel-collector 59090
   - http://localhost:59090/metrics
 
+To view rabbitmq's metrics for prometheus:
+  - kubectl port-forward -n mq service/rabbitmq 9419
+  - http://localhost:9419/metrics
+
 Use your cluster to save spinning containers up separately!  (the below is done automatically in stage06 using NodePorts!)
   - kubectl port-forward -n mq service/rabbitmq-service 32000:5672
   - kubectl port-forward -n fileman service/clamav-service 32001:3310
