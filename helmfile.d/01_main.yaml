@@ -30,45 +30,48 @@ releases:
   chart: ingress-nginx/ingress-nginx
   version: 4.11.1
   namespace: ingress-nginx
+  needs: [cert-manager/cert-manager]
 
 - name: prometheus
   chart: prometheus-community/prometheus
   version: 25.25.0
   namespace: monitoring
-  values:
-  - ../values/prometheus-values.yaml
+  needs: [ingress-nginx/ingress-nginx]
+  values: [../values/prometheus-values.yaml]
 
 - name: grafana
   chart: grafana/grafana
   version: 8.4.0
   namespace: monitoring
-  values:
-  - ../values/grafana-values.yaml
+  needs: [ingress-nginx/ingress-nginx]
+  values: [../values/grafana-values.yaml]
 
 - name: promtail
   chart: ../manifests/promtail
   namespace: monitoring
+  needs: [monitoring/prometheus]
 
 - name: loki
   chart: grafana/loki
   version: 6.7.3
   namespace: monitoring
-  values:
-  - ../values/loki-values.yaml
+  needs: [monitoring/prometheus]
+  values: [../values/loki-values.yaml]
 
 - name: tempo
   chart: grafana/tempo
   version: 1.10.1
   namespace: monitoring
-  values:
-  - ../values/tempo-values.yaml
+  needs: [ingress-nginx/ingress-nginx]
+  values: [../values/tempo-values.yaml]
 
 - name: rabbitmq
   chart: bitnami/rabbitmq
   version: 14.6.6
   namespace: mq
-  values:
-  - ../values/rabbitmq-values.yaml
+  needs: [ingress-nginx/ingress-nginx]
+  values: [../values/rabbitmq-values.yaml]
 
 - name: my-apps
   chart: ../manifests/my-apps
+  needs: [ingress-nginx/ingress-nginx]

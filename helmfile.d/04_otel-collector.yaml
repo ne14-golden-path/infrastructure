@@ -1,6 +1,6 @@
-# This does NOT roll out with 1-click, despite best efforts :(
+# This does NOT roll out with "1-click", despite best efforts :(
 # Check Helm releases in OpenLens; usually the otel-collector is marked as FAILED after the first try
-# It then seems to need to be physically removed (e.g. via OpenLens) before re-running
+# helmfile apply does not fix these failed releases... (But helmfile sync DOES seem to!)
 
 releases:
 
