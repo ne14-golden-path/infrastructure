@@ -1,4 +1,7 @@
 releases:
 
+- name: prod-ingress
+  chart: ../manifests/prod-ingress
+
 - name: dev-ports
   chart: ../manifests/dev-ports

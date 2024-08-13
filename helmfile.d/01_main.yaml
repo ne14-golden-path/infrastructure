@@ -12,6 +12,9 @@ repositories:
 - name: grafana
   url: https://grafana.github.io/helm-charts
 
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+
 
 releases:
 
@@ -42,10 +45,6 @@ releases:
   values:
   - ../values/grafana-values.yaml
 
-- name: monitoring-ingresses
-  chart: ../manifests/monitoring-ingresses
-  namespace: monitoring
-
 - name: promtail
   chart: ../manifests/promtail
   namespace: monitoring
@@ -63,6 +62,13 @@ releases:
   namespace: monitoring
   values:
   - ../values/tempo-values.yaml
+
+- name: rabbitmq
+  chart: bitnami/rabbitmq
+  version: 14.6.6
+  namespace: mq
+  values:
+  - ../values/rabbitmq-values.yaml
 
 - name: my-apps
   chart: ../manifests/my-apps

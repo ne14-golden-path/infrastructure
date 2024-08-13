@@ -1,0 +1,5 @@
+auth:
+  username: "guest"
+  password: "guest"
+  erlangCookie: "c2VjcmV0Y29va2ll"
+extraPlugins: "rabbitmq_prometheus"

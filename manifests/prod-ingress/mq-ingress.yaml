@@ -1,12 +1,3 @@
-# mq namespace
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: mq
-  labels:
-    name: mq
----
-
 # development cert
 apiVersion: v1
 kind: Secret
@@ -21,83 +12,6 @@ data:
     LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tDQpNSUlFdkFJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0JLWXdnZ1NpQWdFQUFvSUJBUUNDK090a0VyL2paTEpBDQp3VDFXNHo5a3VZNzJZcndIMnJiZyt5bFFjU2RuNVhySUlIcURTRVh5QS93dFB6Rng5ZXd4RlJRUUxScm5nTjJqDQo5NDA4cHRDN3hERytjOWp4VzR5c3NkRlc4YmcvM0pjMWdPeXdmNFkzbGlrQWFnU0hNNFVPanRkZFF5Y05tc2JSDQpNeHovUk9NNnMxdlFBcENONi9TeDBWNnVyMysxbDdWYUxoYlV6RW92TWRxOHJLdlBBazZ6T1VwSkFzazIvUlJVDQpQb285TThoaTl3OTFrNW0zTWJSU2dxeGtlOGx5VDNrak96dzJaL2VVU2U4NTI3Vy9CdUIvTXRsUk01enM0Z1IvDQpVWGNQcndRdXRxNktxQlROUjBiR2dvSE4yL1hYQ2lGOGw3Y2FJemVEWThINVpHUXNYdUJhVzhhcmE2WTdMckwxDQpJRGhiRXJXNUFnTUJBQUVDZ2dFQUY1NWhBSzU2NlR4dkFzdDJUdFZ6U0t4SDBqblM4ODJtM2lLYy9ETXpxb0pSDQpKb2JvNFFUbkRESll4eVlXdWhqaHE2WkQ5SGpWMmJxOC9ZVTJkS0lXa1UzYnRKODZsNmZ0VWZWTkxaTXdxVitUDQo2eU9oUzJEcjZObE04cFNyMVYvZWxsWC9FNFA1Sm5ScmR5MXpCTHU5Q0lod3ZhM0F1TDg4NU5ZL2Ixd1p1VHJzDQoveEVRYlBHSUc5dU5EZkRKeUdlZjJQcy9vQ0JPMXVFcSt1cUpQQlRCWHFXMkhSVFo0WHlSZkNyRDVJY2tabnlMDQpiRjFhNURQem9idlZFSTM4bTNTMzIzdDFCN1I1eVJsQ09TMnc5dS9OYTBlZXc5c2N2OUo3N2FzYnNkZi9DV3h3DQpmSnBPd0xTeEJUZUlEbWdzRXBQaEdJOURpeTExVzNWS2R0OU1RTUFLZ3dLQmdRQzVHZVBSY2FtUzVUSjFVQmhBDQphcmJ5akNoaVI4MDY3eVJoeDZTbUNkZUtOVWgxaUhMRmtMT2YyUm9EZE9yQklhM2IrNDZtSXV6VzdCQllVTWtsDQpPLzVDbVBpRm5rZVVNckN3eG05OWNpTU5yVTE1c3pCcGpLNlRkK0NhVi9vZ3NaRVBnUzVNRHNmNEM2aytEVVB4DQo0ZHVybEt6YzNRNHp6dEIvazdranlYQmdWd0tCZ1FDMUkyenpUWXBpV1JlRWZ6and3UXh3dE9EVDFJdTJoY3Z4DQpNNk9sZXBJb2R5ZDhSQjZRNHNLQjdzdUNKVUNnNmVJOXhkNXh0NGlhc09FWkdHRUJrb3Z6Z29tTk4xQkt3bFlVDQpKZzVIaWJYWTlVdlZTN1BxcDhYODhMV3h3NVl4OUZpdG9EN0s0Z29VVlBZc3JHSnFVME84WERyY3pNdG9kZ2xRDQpKMDFqUXhpUWJ3S0JnQlVVeGNXTTFHdE9meml0THBYbmtYNStSL3NwZ2s0Ny9rREVwQlBrK3c5YWtpNFFwRUdzDQpBVWtyU0xNc0ZiQjVUWHZJWXE2NU81QWV3cDNNVlp4UUFOMUUzc2taQmIzekoveDZIU2lFWDBtbmV6TnBIUkpvDQpXMW1nUll4T2lNWkFjdXo1SVhTNEdqNDkxY0NqY2lHU1A1cURERXo3UUNyV1d4aXNrbUZwQjh0eEFvR0FmcU84DQoyVUdkL1hKaVFjMGNoeDNBejg5MTNFT2VSa2EydGZTdmRkTUMrbTJMMnBKWmVGeEJOc3czMWM2cnA1UzlDd2thDQpveEI0M2dYSjZseWovWkJ5YmhZV2l2ZGdHRlJVRUJRbktaYTYzMnRuMEVEMEVadW9qVlhSQWU1SFJMZWJoQkFqDQp0bjVnSTZUZTA0N1Y0NVpCSmlDcE9wT25wbW5YeXdVZlVzV25GOXNDZ1lBSXg5N2lzNkFxN0VYd2Z3NE04Mlo4DQpsbWVIcENDK25qWndDL2JlMlZvRE5xN1l1NDRTakVCVk9hM2d1bGV0eVd0SlBQc1NoSU9IeGMyMktDR3VnbVNMDQozTlJ2UFFDQXg1dHpGZEsySWI2NVZNWnhaaEU5ZHlMazVIU01WZ2wwQldKSSt2aFlBTG9XdGRBUk9weDN5aHZTDQpaanRPUHhPRGRpR01SYmVOUGJoMWpRPT0NCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0NCg==
 ---
 
-# rabbitmq
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: rabbitmq-deploy
-  namespace: mq
-  labels:
-    app: rabbitmq
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: rabbitmq
-  template:
-    metadata:
-      labels:
-        app: rabbitmq
-    spec:
-      containers:
-      - name: rabbitmq-pod
-        image: rabbitmq:3.12-management
-        resources:
-          limits:
-            memory: 256Mi
-            cpu: '8'
-          requests:
-            memory: 256Mi
-            cpu: 40m
-        ports:
-        - containerPort: 15672
-        env:
-        # use downward api to save messing around with role permissions, etc when trying
-        # to scrape and apply these simple properties later on the observability stack
-        - name: K8S_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        - name: K8S_APP
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.labels['app']
-        - name: K8S_POD
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.name
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: rabbitmq-service
-  namespace: mq
-spec:
-  type: ClusterIP
-  selector:
-    app: rabbitmq
-  ports:
-    - protocol: TCP
-      port: 5672
-      targetPort: 5672
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: rabbitui-service
-  namespace: mq
-spec:
-  type: ClusterIP
-  selector:
-    app: rabbitmq
-  ports:
-    - protocol: TCP
-      port: 15672
-      targetPort: 15672
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -118,7 +32,7 @@ spec:
       paths:
       - backend:
           service:
-            name: rabbitui-service
+            name: rabbitmq
             port:
               number: 15672
         path: /
