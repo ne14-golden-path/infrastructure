@@ -24,17 +24,19 @@ docker build . -t ne1410s/services.docs:0.0.1 -f ".\ne14.services.docs.app\Docke
 # other info
 # Pre-k8s one-time (/ anytime)
 Add hosts file entries as follows:
-  - 127.0.0.1 prometheus.local.ne1410s.co.uk
-  - 127.0.0.1 grafana.local.ne1410s.co.uk
-  - 127.0.0.1 rabbit.local.ne1410s.co.uk
-  - 127.0.0.1 portalapi.local.ne1410s.co.uk
-  - 127.0.0.1 portal.local.ne1410s.co.uk
+  - 127.0.0.1 prometheus.goaldiggers.dev
+  - 127.0.0.1 grafana.goaldiggers.dev
+  - 127.0.0.1 rabbit.goaldiggers.dev
+  - 127.0.0.1 portalapi.goaldiggers.dev
+  - 127.0.0.1 portal.goaldiggers.dev
 
 Apps are (/will be) accessible on:
-  - https://prometheus.local.ne1410s.co.uk
-  - https://grafana.local.ne1410s.co.uk
-  - https://rabbit.local.ne1410s.co.uk
-  - https://portal.local.ne1410s.co.uk
+  - https://prometheus.goaldiggers.dev
+  - https://grafana.goaldiggers.dev
+  - https://rabbit.goaldiggers.dev
+  - https://portal.goaldiggers.dev
+
+For local/dev purposes, add the `development_ca.crt` to your trusted CAs
 
 In OpenLens, go to (Cluster) > Settings > Metrics and set:
   - PROMETHEUS: Prometheus Operator
@@ -43,7 +45,7 @@ In OpenLens, go to (Cluster) > Settings > Metrics and set:
 With the above, the CPU and Memory dashboards should show up in OpenLens on the pods (once prometheus is deployed!)
 
 ## Configure grafana
-You should now be able to access grafana on the above url (admin:admin)
+You should now be able to access grafana on the above url (admin:goaldiggersrule!)
 There should be preconfigured datasources for loki and prometheus (we added this in grafana/monitoring manifest)
 We're now free to add prometheus- and loki- related dashboards!!
   - Starter prometheus dashboard id: 8588
@@ -78,6 +80,9 @@ Use your cluster to save spinning containers up separately!  (the below is done 
   - kubectl port-forward -n default service/azurite-service 32003:10000
 
 Viewing the promtail-daemonset pod logs also proved useful when writing this guide!
+
+To create a tls secret from cert file(s):
+  - kubectl create secret tls ingress-tls-cert --key=tls.key --cert=tls.crt -n NAMESPACE
 
 # Sync helm repositories
 Having matching helm repos allows us to identify upgrades / available versions more easily, (inc. in Lens!)
