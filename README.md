@@ -34,6 +34,7 @@ Apps are (/will be) accessible on:
   - https://prometheus.goaldiggers.dev
   - https://grafana.goaldiggers.dev
   - https://rabbit.goaldiggers.dev
+  - https://portalapi.goaldiggers.dev
   - https://portal.goaldiggers.dev
 
 For local/dev purposes, add the `development_ca.crt` to your trusted CAs
