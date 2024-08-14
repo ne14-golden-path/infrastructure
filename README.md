@@ -4,8 +4,8 @@ Shared infrastructure
 # deploy infra
 ```bash
 # deploys the contents of helmfile.d (via container, as helmfile requires linux helm plugins)
-# NB: The helmfile.d approach is a workaround to allow 1-click deploy, as otel apprarently cant be made to wait for cert-man CRDs :/
-# NB: helmfile sync might also come in handy, e.g. if a release has previously failed it will be upgraded
+# NB: The helmfile.d approach helps us achieve 1-click deploy. (cert-man/otel the most problematic.. mostly due to CRDs)
+# NB: helmfile "sync" might come in handy, e.g. if a release has previously failed it will be upgraded
 docker run --rm --net=host -v "${HOME}/.kube:/helm/.kube" -v "${PWD}:/wd" --workdir /wd ghcr.io/helmfile/helmfile:v0.167.1 helmfile apply
 ```
 
