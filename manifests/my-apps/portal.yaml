@@ -87,7 +87,9 @@ spec:
               fieldPath: metadata.name
         volumeMounts:
         - name: portalweb-volume
-          mountPath: /usr/share/nginx/html/assets
+          # this syntax is for single files only
+          mountPath: /usr/share/nginx/html/env.js
+          subPath: env.js
       volumes:
       - name: portalweb-volume
         configMap:
