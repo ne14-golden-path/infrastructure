@@ -11,7 +11,7 @@ spec:
     - protocol: TCP
       port: 5672
       targetPort: 5672
-      nodePort: 32000
+      nodePort: 32000   # ngl this doesnt appear to be working. we can forward port via rancher
 ---
 
 apiVersion: v1

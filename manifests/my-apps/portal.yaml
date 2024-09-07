@@ -31,6 +31,9 @@ data:
   env.js: >
     window.__env = {
       apiUrl: 'https://portalapi.goaldiggers.dev',
+      b2cClientId: '3b1ad634-3c6d-4884-834f-ab8b3f5ef1ea',
+      b2cSignInId: 'B2C_1_signUpOrSignIn',
+      b2cTenantSubdomain: 'ne14auth',
     };
 ---
 
@@ -142,6 +145,7 @@ metadata:
   name: portalapi-config
   namespace: portal
 data:
+  HostedBaseUrl: "http://localhost:8080"
   AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
   OpenTel__Grpc: "http://otel-collector.monitoring:4317"
   RabbitMq__Hostname: "rabbitmq.mq"

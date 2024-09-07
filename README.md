@@ -7,6 +7,10 @@ Shared infrastructure
 # NB: The helmfile.d approach helps us achieve 1-click deploy. (cert-man/otel the most problematic.. mostly due to CRDs)
 # NB: helmfile "sync" might come in handy, e.g. if a release has previously failed it will be upgraded
 docker run --rm --net=host -v "${HOME}/.kube:/helm/.kube" -v "${PWD}:/wd" --workdir /wd ghcr.io/helmfile/helmfile:v0.167.1 helmfile apply
+
+# patch container or config updates with the following (helmfile may not detect these changes)
+# note that kubectl does grumble tho about having not previously knowing about the deploy :/
+kubectl apply -f ./manifests/my-apps/
 ```
 
 # build docker
@@ -74,7 +78,7 @@ To view rabbitmq's metrics for prometheus:
   - kubectl port-forward -n mq service/rabbitmq 9419
   - http://localhost:9419/metrics
 
-Use your cluster to save spinning containers up separately!  (the below is done automatically in stage06 using NodePorts!)
+Use your cluster to save spinning containers up separately! (can be done via NodePorts too..?)
   - kubectl port-forward -n mq service/rabbitmq-service 32000:5672
   - kubectl port-forward -n fileman service/clamav-service 32001:3310
   - kubectl port-forward -n fileman service/gotenberg-service 32002:3000
@@ -82,7 +86,7 @@ Use your cluster to save spinning containers up separately!  (the below is done 
 
 Viewing the promtail-daemonset pod logs also proved useful when writing this guide!
 
-To create a tls secret from cert file(s):
+To create a tls secret from cert file(s): (nb: for dev this is now done instead via self-signed cert)
   - kubectl create secret tls ingress-tls-cert --key=tls.key --cert=tls.crt -n NAMESPACE
 
 # Sync helm repositories
@@ -90,11 +94,11 @@ Having matching helm repos allows us to identify upgrades / available versions m
 
 ```bash
 # match the repos in helmfile!
-helm repo remove bitnami; `
-  helm repo add jetstack https://charts.jetstack.io; `
-  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx; `
-  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts; `
-  helm repo add grafana https://grafana.github.io/helm-charts; `
-  helm repo add otel https://open-telemetry.github.io/opentelemetry-helm-charts; `
-  helm repo update;
+helm repo add bitnami https://charts.bitnami.com/bitnami; `
+helm repo add jetstack https://charts.jetstack.io; `
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx; `
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts; `
+helm repo add grafana https://grafana.github.io/helm-charts; `
+helm repo add otel https://open-telemetry.github.io/opentelemetry-helm-charts; `
+helm repo update;
 ```
