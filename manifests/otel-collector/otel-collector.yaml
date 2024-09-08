@@ -39,10 +39,6 @@ spec:
         endpoint: tempo:4317
         tls:
           insecure: true
-      otlp/jaeger:
-        endpoint: jaeger-collector:4317
-        tls:
-          insecure: true
     extensions:
       zpages:
     service:
@@ -58,7 +54,7 @@ spec:
           exporters: [prometheus]
         traces:
           receivers: [otlp]
-          exporters: [otlp/tempo, otlp/jaeger]
+          exporters: [otlp/tempo]
   ports:
     - name: otel-zpages
       port: 55679
