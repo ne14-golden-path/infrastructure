@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: clamav-pod
-        image: clamav/clamav:1.2
+        image: clamav/clamav:1.4
         resources:
           limits:
             memory: 2048Mi
