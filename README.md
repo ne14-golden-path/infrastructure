@@ -8,8 +8,7 @@ Shared infrastructure
 # NB: helmfile "sync" might come in handy, e.g. if a release has previously failed it will be upgraded
 docker run --rm --net=host -v "${HOME}/.kube:/helm/.kube" -v "${PWD}:/wd" --workdir /wd ghcr.io/helmfile/helmfile:v0.167.1 helmfile apply
 
-# patch container or config updates with the following (helmfile may not detect these changes)
-# note that kubectl does grumble tho about having not previously knowing about the deploy :/
+# deploy apps separately from general infra
 kubectl apply -f ./manifests/my-apps/
 ```
 

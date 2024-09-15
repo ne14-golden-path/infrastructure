@@ -49,6 +49,6 @@ releases:
   needs: [monitoring/prometheus]
   values: [../values/rabbitmq-values.yaml]
 
-- name: my-apps
-  chart: ../manifests/my-apps
-  needs: [mq/rabbitmq]
+# - name: my-apps
+#   chart: ../manifests/my-apps
+#   needs: [mq/rabbitmq]
