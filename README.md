@@ -10,6 +10,13 @@ docker run --rm --net=host -v "${HOME}/.kube:/helm/.kube" -v "${PWD}:/wd" --work
 
 # deploy apps separately from general infra
 kubectl apply -f ./manifests/my-apps/
+
+# ports to facilitate local development against common cluster services
+start -nnw kubectl 'port-forward -n mq service/rabbitmq 32000:amqp'
+start -nnw kubectl 'port-forward -n fileman service/clamav-service 32001:3310'
+start -nnw kubectl 'port-forward -n fileman service/gotenberg-service 32002:3000'
+start -nnw kubectl 'port-forward service/azurite-service 32003:10000'
+
 ```
 
 # build docker
@@ -42,11 +49,11 @@ Apps are (/will be) accessible on:
 
 For local/dev purposes, add the `development_ca.crt` to your trusted CAs
 
-In OpenLens, go to (Cluster) > Settings > Metrics and set:
+In Lens, go to (Cluster) > Settings > Metrics and set:
   - PROMETHEUS: Prometheus Operator
   - PROMETHEUS SERVICE ADDRESS: monitoring/prometheus-server:80
 
-With the above, the CPU and Memory dashboards should show up in OpenLens on the pods (once prometheus is deployed!)
+With the above, the CPU and Memory dashboards should show up in Lens on the pods (once prometheus is deployed!)
 
 ## Configure grafana
 You should now be able to access grafana on the above url (admin:goaldiggersrule!)
