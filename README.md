@@ -15,8 +15,8 @@ kubectl apply -f ./manifests/my-apps/
 start -nnw kubectl 'port-forward -n mq service/rabbitmq 32000:amqp'
 start -nnw kubectl 'port-forward -n fileman service/clamav-service 32001:3310'
 start -nnw kubectl 'port-forward -n fileman service/gotenberg-service 32002:3000'
-start -nnw kubectl 'port-forward service/azurite-service 32003:10000'
-
+start -nnw kubectl 'port-forward -n default service/azurite-service 32003:10000'
+start -nnw kubectl 'port-forward -n monitoring service/otel-collector 32004:4317'
 ```
 
 # build docker
