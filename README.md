@@ -17,6 +17,10 @@ start -nnw kubectl 'port-forward -n fileman service/clamav-service 32001:3310'
 start -nnw kubectl 'port-forward -n fileman service/gotenberg-service 32002:3000'
 start -nnw kubectl 'port-forward -n default service/azurite-service 32003:10000'
 start -nnw kubectl 'port-forward -n monitoring service/otel-collector 32004:4317'
+
+# find process for one of the above (e.g. on 32000) and kill by pid (final column on 1st cmd)
+netstat -ano | findstr :32000
+taskkill /pid NNNNN /F
 ```
 
 # build docker
