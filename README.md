@@ -89,7 +89,7 @@ To view rabbitmq's metrics for prometheus:
   - http://localhost:9419/metrics
 
 Use your cluster to save spinning containers up separately! (can be done via NodePorts too..?)
-  - kubectl port-forward -n mq service/rabbitmq-service 32000:5672
+  - kubectl port-forward -n mq service/rabbitmq 32000:amqp
   - kubectl port-forward -n fileman service/clamav-service 32001:3310
   - kubectl port-forward -n fileman service/gotenberg-service 32002:3000
   - kubectl port-forward -n default service/azurite-service 32003:10000
