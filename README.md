@@ -15,8 +15,12 @@ kubectl apply -f ./manifests/my-apps/
 start -nnw kubectl 'port-forward -n mq service/rabbitmq 32000:amqp'
 start -nnw kubectl 'port-forward -n fileman service/clamav-service 32001:3310'
 start -nnw kubectl 'port-forward -n fileman service/gotenberg-service 32002:3000'
-start -nnw kubectl 'port-forward service/azurite-service 32003:10000'
+start -nnw kubectl 'port-forward -n default service/azurite-service 32003:10000'
+start -nnw kubectl 'port-forward -n monitoring service/otel-collector 32004:4317'
 
+# find process for one of the above (e.g. on 32000) and kill by pid (final column on 1st cmd)
+netstat -ano | findstr :32000
+taskkill /pid NNNNN /F
 ```
 
 # build docker
@@ -85,7 +89,7 @@ To view rabbitmq's metrics for prometheus:
   - http://localhost:9419/metrics
 
 Use your cluster to save spinning containers up separately! (can be done via NodePorts too..?)
-  - kubectl port-forward -n mq service/rabbitmq-service 32000:5672
+  - kubectl port-forward -n mq service/rabbitmq 32000:amqp
   - kubectl port-forward -n fileman service/clamav-service 32001:3310
   - kubectl port-forward -n fileman service/gotenberg-service 32002:3000
   - kubectl port-forward -n default service/azurite-service 32003:10000
