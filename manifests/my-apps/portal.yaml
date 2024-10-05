@@ -148,7 +148,8 @@ metadata:
   namespace: portal
 data:
   HostedBaseUrl: "http://localhost:8080"
-  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
+  AzureClients__Ephemeral: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
+  AzureClients__Permanent: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
   OpenTel__Grpc: "http://otel-collector.monitoring:4317"
   RabbitMq__Hostname: "rabbitmq.mq"
   RabbitMq__Port: "5672"

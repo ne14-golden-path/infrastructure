@@ -139,7 +139,8 @@ metadata:
   name: docs-config
   namespace: fileman
 data:
-  AzureClients__LocalBlob: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
+  AzureClients__Ephemeral: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
+  AzureClients__Permanent: "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite;"
   ClamAv__Hostname: "clamav-service.fileman"
   ClamAv__Port: "3310"
   GotenbergSharpClient__HealthCheckUrl: "http://gotenberg-service.fileman:3000/health"
